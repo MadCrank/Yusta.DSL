@@ -4,6 +4,9 @@
 # ── Docker volumes (runtime data) ──────────
 volumes/
 
+# ── Playwright (browser automation traces) ──
+.playwright-mcp/
+
 # ── OS files ───────────────────────────────
 .DS_Store
 Thumbs.db
