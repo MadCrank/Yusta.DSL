@@ -53,7 +53,7 @@ def bootstrap() -> None:
     from app import create_app
     from extensions.ext_database import db
     from models.account import Account, Tenant, TenantAccountJoin
-    from services.account_service import AccountService
+    from services.account_service import AccountService, TenantService
 
     app = create_app()
     ctx = app.app_context()
@@ -85,24 +85,46 @@ def bootstrap() -> None:
 
         if account is None:
             log("Creating admin account + workspace...")
-            account = AccountService.create_account_and_tenant(
+            account = AccountService.create_account(
                 email=ADMIN_EMAIL,
                 name=ADMIN_NAME,
                 interface_language=LANGUAGE,
                 password=ADMIN_PASSWORD,
+                is_setup=True,
             )
             db.session.commit()
+            # Create tenant (workspace) for the account
+            TenantService.create_owner_tenant_if_not_exist(account=account, is_setup=True)
+            db.session.commit()
+            # Refresh from DB to get the tenant relationship
+            db.session.refresh(account)
             ok(f"Created admin: {ADMIN_EMAIL}")
         else:
             ok(f"Admin account exists: {ADMIN_EMAIL}")
 
-        # Get the current tenant via join table (most reliable method)
+        # ── Complete Dify setup (marks setup as finished in dify_setups) ──
+        # Without this the web UI keeps showing the install/setup wizard.
+        result = db.session.execute(
+            db.text("SELECT version FROM dify_setups LIMIT 1")
+        ).fetchall()
+        if not result:
+            log("Marking Dify setup as complete...")
+            db.session.execute(
+                db.text(
+                    "INSERT INTO dify_setups (version, setup_at) VALUES (:ver, NOW())"
+                ),
+                {"ver": "1.13.3"},
+            )
+            db.session.commit()
+            ok("Dify setup marked as complete")
+
+        # Get the tenant for this account (just created or existing)
         join = (
             db.session.query(TenantAccountJoin)
             .filter(
                 TenantAccountJoin.account_id == account.id,
-                TenantAccountJoin.current == True,
             )
+            .order_by(TenantAccountJoin.id.asc())
             .first()
         )
         if not join:
@@ -111,7 +133,9 @@ def bootstrap() -> None:
         if not tenant:
             fail("Workspace not found in database")
 
-        # Set the current tenant on the account (required for DSL import)
+        # Ensure the join is marked as current and the account references the tenant
+        if not join.current:
+            join.current = True
         account.current_tenant = tenant
         db.session.commit()
 
@@ -141,17 +165,35 @@ def bootstrap() -> None:
 
         dsl_service = AppDslService(db.session)
         imported = 0
+        skipped = 0
         failed = 0
+
+        # Get list of already-imported app names in this workspace
+        from models.model import App
+        existing_apps = {
+            a.name: a.id
+            for a in db.session.query(App).filter(App.tenant_id == tenant.id).all()
+        }
 
         for dsl_file in dsl_files:
             dsl_name = dsl_file.name
-            log(f"Importing DSL: {dsl_name} ...")
+            log(f"Processing DSL: {dsl_name} ...")
 
             try:
                 content = dsl_file.read_text()
 
+                # Parse YAML to extract the app name
+                dsl_data = yaml.safe_load(content)
+                dsl_app_name = dsl_data.get("app", {}).get("name", dsl_name)
+
+                # Skip if already imported (idempotent)
+                if dsl_app_name in existing_apps:
+                    ok(f"Already imported: {dsl_app_name} (id={existing_apps[dsl_app_name]}), skipping")
+                    skipped += 1
+                    continue
+
                 # Replace model names
-                log(f"  Model mapping: pro/pro-2026-03-01 → {MODEL_PRO}, lite → {MODEL_LITE}")
+                log(f"  Importing '{dsl_app_name}' | Model mapping: pro/pro-2026-03-01 → {MODEL_PRO}, lite → {MODEL_LITE}")
                 content = re.sub(
                     r"name: pro-2026-03-01[ \t]*$",
                     f"name: {MODEL_PRO}",
@@ -191,11 +233,12 @@ def bootstrap() -> None:
                 error_msg = str(e)
                 if any(w in error_msg.lower() for w in ("already exist", "duplicate", "unique")):
                     warn(f"DSL '{dsl_name}' may already exist, skipping")
+                    skipped += 1
                 else:
                     warn(f"Failed to import {dsl_name}: {error_msg}")
                     failed += 1
 
-        log(f"DSL import complete: {imported} imported, {failed} failed")
+        log(f"DSL import complete: {imported} imported, {skipped} skipped, {failed} failed")
 
     finally:
         ctx.pop()
