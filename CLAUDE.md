@@ -6,6 +6,68 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This repo provides a Docker Compose development environment for [Dify](https://github.com/langgenius/dify), pre-configured with the **Yusta** AI assistant DSL workflow. On `docker compose up -d`, a bootstrap script automatically creates the admin account, configures the OpenAI-compatible model provider, and imports DSL workflows from `dsls/`.
 
+## Development workflow
+
+### Quick cycle (edit → validate → deploy → test)
+
+```bash
+# 1. Validate DSL before deploying
+./venv/bin/dify-workflow validate dsls/Yusta.yml
+./venv/bin/dify-workflow checklist dsls/Yusta.yml
+
+# 2. Inspect workflow structure (tree / JSON / Mermaid)
+./venv/bin/dify-workflow inspect dsls/Yusta.yml
+./venv/bin/dify-workflow inspect dsls/Yusta.yml --mermaid
+
+# 3. Deploy DSL to running Dify (no restart needed)
+docker exec yusta-dify-api python /deploy.py
+# Deploy a single file:
+docker exec yusta-dify-api python /deploy.py dsls/Yusta.yml
+# JSON output (for scripts):
+docker exec yusta-dify-api python /deploy.py --json dsls/Yusta.yml
+
+# 4. Test via API
+./scripts/test.sh "Привет, расскажи о себе"
+./scripts/test.sh --stream "What is Yusta?"
+```
+
+### dify-workflow CLI (local validation & editing)
+
+Installed in local `venv/` (Python 3.12, one-time setup: `./venv/bin/pip install -e /tmp/dify-workflow-cli`).
+
+```bash
+# Validate (auto-detects mode: workflow/chatflow/chat/agent/completion)
+./venv/bin/dify-workflow validate dsls/Yusta.yml
+./venv/bin/dify-workflow validate dsls/Yusta.yml --strict   # warnings = errors
+
+# Pre-publish checklist (mirrors Dify UI pre-publish checks)
+./venv/bin/dify-workflow checklist dsls/Yusta.yml
+
+# Inspect structure
+./venv/bin/dify-workflow inspect dsls/Yusta.yml             # Rich tree
+./venv/bin/dify-workflow inspect dsls/Yusta.yml -j          # JSON
+./venv/bin/dify-workflow inspect dsls/Yusta.yml --mermaid   # Flowchart
+
+# Auto-layout nodes (Dify-style left-to-right)
+./venv/bin/dify-workflow layout -f dsls/Yusta.yml -o dsls/Yusta.yml
+
+# Diff two versions
+./venv/bin/dify-workflow diff dsls/Yusta.yml dsls/Yusta_v2.yml
+
+# Create a new workflow from template
+./venv/bin/dify-workflow create --mode chatflow --template llm -o dsls/new_flow.yml
+
+# Guide
+./venv/bin/dify-workflow guide
+```
+
+### How it works
+
+1. **Edit** — in Dify Studio (localhost:3000) for structural changes, or directly in IDE for prompt/model tweaks
+2. **Validate** — `dify-workflow validate` catches cycles, missing nodes, frontend crashes, and variable ref errors before Dify sees them
+3. **Deploy** — `deploy.py` replaces placeholder model names (`pro`/`lite`) from `.env`, finds existing app by name, deletes and reimports (idempotent)
+4. **Test** — `test.sh` sends a question to the Dify Service API and prints the answer. Supports blocking and streaming modes
+
 ## Commands
 
 ```bash
