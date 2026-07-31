@@ -25,6 +25,7 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - ./volumes/db/data:/var/lib/postgresql/data
+      - ./scripts/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-dify} -d ${DB_DATABASE:-dify}"]
       interval: 2s
@@ -77,6 +78,9 @@ services:
       # Hosted OpenAI provider (pre-configured via env)
       HOSTED_OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       HOSTED_OPENAI_API_BASE: ${OPENAI_API_BASE_URL:-https://api.openai.com/v1}
+      # Plugin daemon connection
+      PLUGIN_DAEMON_URL: ${PLUGIN_DAEMON_URL:-http://plugin_daemon:5002}
+      PLUGIN_DAEMON_KEY: ${PLUGIN_DAEMON_KEY:-lYkiYYT6owG+71oLerGzA7GXCgOT++6ovaezWAjpCjf+Sjc3ZtU+qUEi}
       # Bootstrap vars (for init.py)
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_API_BASE_URL: ${OPENAI_API_BASE_URL:-https://api.openai.com/v1}
@@ -139,6 +143,60 @@ services:
         condition: service_healthy
     volumes:
       - ./volumes/app/storage:/app/api/storage
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # ── Plugin Daemon ────────────────────────
+  plugin_daemon:
+    image: langgenius/dify-plugin-daemon:${DIFY_PLUGIN_VERSION:-0.6.3-local}
+    container_name: yusta-dify-plugin-daemon
+    restart: unless-stopped
+    environment:
+      # Server
+      SERVER_PORT: ${PLUGIN_DAEMON_PORT:-5002}
+      SERVER_KEY: ${PLUGIN_DAEMON_KEY:-lYkiYYT6owG+71oLerGzA7GXCgOT++6ovaezWAjpCjf+Sjc3ZtU+qUEi}
+      # Database
+      DB_USERNAME: ${DB_USERNAME:-dify}
+      DB_PASSWORD: ${DB_PASSWORD:-difyai123456}
+      DB_HOST: ${DB_HOST:-db}
+      DB_PORT: ${DB_PORT:-5432}
+      DB_DATABASE: ${DB_PLUGIN_DATABASE:-dify_plugin}
+      DB_SSL_MODE: ${DB_SSL_MODE:-disable}
+      # Redis
+      REDIS_HOST: ${REDIS_HOST:-redis}
+      REDIS_PORT: ${REDIS_PORT:-6379}
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-difyai123456}
+      # Dify inner API (REQUIRED)
+      DIFY_INNER_API_URL: ${PLUGIN_DIFY_INNER_API_URL:-http://api:5001}
+      DIFY_INNER_API_KEY: ${PLUGIN_DIFY_INNER_API_KEY:-QaHbTe77CtuXmsfyhR7+vRjI/+XbV1AaFy691iy+kGDv2Jvy0/eAh8Y1}
+      # Plugin remote installing (REQUIRED)
+      PLUGIN_REMOTE_INSTALLING_HOST: ${PLUGIN_DEBUGGING_HOST:-0.0.0.0}
+      PLUGIN_REMOTE_INSTALLING_PORT: ${PLUGIN_DEBUGGING_PORT:-5003}
+      # Storage
+      PLUGIN_STORAGE_TYPE: ${PLUGIN_STORAGE_TYPE:-local}
+      PLUGIN_STORAGE_LOCAL_ROOT: ${PLUGIN_STORAGE_LOCAL_ROOT:-/app/storage}
+      PLUGIN_WORKING_PATH: ${PLUGIN_WORKING_PATH:-/app/storage/cwd}
+      PLUGIN_INSTALLED_PATH: ${PLUGIN_INSTALLED_PATH:-plugin}
+      PLUGIN_PACKAGE_CACHE_PATH: ${PLUGIN_PACKAGE_CACHE_PATH:-plugin_packages}
+      PLUGIN_MEDIA_CACHE_PATH: ${PLUGIN_MEDIA_CACHE_PATH:-assets}
+      # Timeouts & limits
+      PYTHON_ENV_INIT_TIMEOUT: ${PLUGIN_PYTHON_ENV_INIT_TIMEOUT:-120}
+      PLUGIN_MAX_EXECUTION_TIMEOUT: ${PLUGIN_MAX_EXECUTION_TIMEOUT:-600}
+      PLUGIN_STDIO_BUFFER_SIZE: ${PLUGIN_STDIO_BUFFER_SIZE:-1024}
+      PLUGIN_STDIO_MAX_BUFFER_SIZE: ${PLUGIN_STDIO_MAX_BUFFER_SIZE:-5242880}
+      MAX_PLUGIN_PACKAGE_SIZE: ${PLUGIN_MAX_PACKAGE_SIZE:-52428800}
+      # Signature verification
+      FORCE_VERIFYING_SIGNATURE: ${FORCE_VERIFYING_SIGNATURE:-true}
+      # Misc
+      PPROF_ENABLED: ${PLUGIN_PPROF_ENABLED:-false}
+      PIP_MIRROR_URL: ${PIP_MIRROR_URL:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./volumes/plugin_daemon:/app/storage
+    ports:
+      - "${EXPOSE_PLUGIN_DEBUGGING_PORT:-5003}:${PLUGIN_DEBUGGING_PORT:-5003}"
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
