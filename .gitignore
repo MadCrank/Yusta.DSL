@@ -1,0 +1,16 @@
+# ── Environment secrets ────────────────────
+.env
+
+# ── Docker volumes (runtime data) ──────────
+volumes/
+
+# ── OS files ───────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── IDE ────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

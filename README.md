@@ -4,6 +4,52 @@
 
 ---
 
+## 🚀 Быстрый старт (Docker Compose)
+
+```bash
+# 1. Настрой окружение
+cp .env.example .env
+# Отредактируй .env → укажи OPENAI_API_KEY и OPENAI_API_BASE_URL
+
+# 2. Запусти Dify
+docker compose up -d
+
+# 3. Открой веб-интерфейс
+open http://localhost:3000
+```
+
+При первом запуске:
+- Dify автоматически инициализирует БД и учётную запись администратора
+- `scripts/init.sh` ждёт готовности API, затем импортирует все DSL из папки `dsls/`
+- Модельный провайдер `openai_api_compatible` настраивается через переменные окружения
+
+### ⚙️ Основные переменные (.env)
+
+| Переменная | Назначение | По умолчанию |
+|-----------|-----------|-------------|
+| `DIFY_VERSION` | Версия образов Dify | `latest` |
+| `OPENAI_API_KEY` | Ключ API для LLM | *обязательно* |
+| `OPENAI_API_BASE_URL` | Базовый URL LLM API | `https://api.openai.com/v1` |
+| `ADMIN_EMAIL` | Email администратора Dify | `admin@yusta.local` |
+| `ADMIN_PASSWORD` | Пароль администратора | `yusta-admin-123` |
+| `WEB_PORT` | Порт веб-интерфейса | `3000` |
+
+### 📁 Структура проекта
+
+```
+.
+├── docker-compose.yml      # Стек Dify (db, redis, api, worker, web, init)
+├── .env.example            # Шаблон конфигурации
+├── .env                    # Локальная конфигурация (в .gitignore)
+├── .gitignore
+├── dsls/
+│   └── Yusta.yml           # DSL воркфлоу Dify
+└── scripts/
+    └── init.sh             # Bootstrap-скрипт авто-импорта DSL
+```
+
+---
+
 ## 🎯 Зачем нужна Юста?
 
 Написание документации — это часто рутинная и трудоёмкая задача, требующая специфических навыков. Юста берёт на себя основную работу:
