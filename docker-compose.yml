@@ -92,6 +92,11 @@ services:
       # Storage
       STORAGE_TYPE: ${STORAGE_TYPE:-local}
       STORAGE_LOCAL_PATH: ${STORAGE_LOCAL_PATH:-storage}
+      # SSRF proxy timeouts (for marketplace/plugin downloads)
+      SSRF_DEFAULT_TIME_OUT: "60"
+      SSRF_DEFAULT_READ_TIME_OUT: "60"
+      SSRF_DEFAULT_CONNECT_TIME_OUT: "10"
+      SSRF_DEFAULT_MAX_RETRIES: "3"
       # Disable telemetry updates check
       CHECK_UPDATE_URL: ""
     depends_on:
@@ -102,6 +107,7 @@ services:
     volumes:
       - ./volumes/app/storage:/app/api/storage
       - ./dsls:/dsls:ro
+      - ./plugins:/plugins:ro
       - ./scripts/init.py:/init.py:ro
     ports:
       - "5001:5001"

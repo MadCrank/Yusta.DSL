@@ -141,12 +141,65 @@ def bootstrap() -> None:
 
         log(f"Using workspace: {tenant.name} (id={tenant.id})")
 
-        # ── Step 2: Model provider via env vars ──
-        # Dify auto-configures the openai_api_compatible provider via
-        # HOSTED_OPENAI_API_KEY and HOSTED_OPENAI_API_BASE env vars at startup.
-        # No additional API call needed.
+        # ── Step 2: Configure model credentials ──
+        # Dify 1.13 uses a plugin architecture. The openai_api_compatible
+        # plugin must be installed once (persists in volumes/plugin_daemon/).
+        # If missing, install via web UI: Plugins → Marketplace → search
+        # "OpenAI API-compatible" → Install.
         if OPENAI_KEY and OPENAI_KEY != "sk-your-key-here":
-            ok(f"Model provider will use: {OPENAI_BASE} (via HOSTED_OPENAI_API_KEY)")
+            log("Configuring openai_api_compatible model credentials...")
+            provider = "langgenius/openai_api_compatible/openai_api_compatible"
+            try:
+                from services.model_provider_service import ModelProviderService
+                mps = ModelProviderService()
+
+                # Wait for provider to be available (plugin may still be loading)
+                provider_ready = False
+                for attempt in range(10):
+                    try:
+                        mps._get_provider_configuration(tenant.id, provider)
+                        provider_ready = True
+                        break
+                    except Exception:
+                        time.sleep(3)
+
+                if not provider_ready:
+                    warn("openai_api_compatible plugin not installed!")
+                    warn("Install it once via web UI:")
+                    warn("  Plugins → Marketplace → 'OpenAI API-compatible' → Install")
+                    warn("Then restart: docker compose down && docker compose up -d")
+                else:
+                    base_credentials = {
+                        "api_key": OPENAI_KEY,
+                        "endpoint_url": OPENAI_BASE,
+                        "context_size": "131072",
+                        "mode": "chat",
+                        "compatibility_mode": "strict",
+                        "function_calling_type": "no_call",
+                        "max_tokens_to_sample": "8192",
+                    }
+                    created = 0
+                    for model_name in {MODEL_PRO, MODEL_LITE}:
+                        try:
+                            mps.create_model_credential(
+                                tenant_id=tenant.id, provider=provider,
+                                model_type="llm", model=model_name,
+                                credentials={**base_credentials},
+                                credential_name=model_name,
+                            )
+                            ok(f"  Model: {model_name}")
+                            created += 1
+                        except Exception as e:
+                            if "already" in str(e).lower():
+                                ok(f"  Model already exists: {model_name}")
+                            else:
+                                warn(f"  {model_name}: {e}")
+                    if created > 0:
+                        db.session.commit()
+                        ok(f"Provider configured ({created} models): {OPENAI_BASE}")
+            except Exception as e:
+                warn(f"Provider setup: {e} — configure manually in Settings")
+                db.session.rollback()
         else:
             warn("OPENAI_API_KEY not set or placeholder. Set it in .env and restart.")
 
