@@ -109,6 +109,7 @@ services:
       - ./dsls:/dsls:ro
       - ./plugins:/plugins:ro
       - ./scripts/init.py:/init.py:ro
+      - ./scripts/deploy.py:/deploy.py:ro
     ports:
       - "5001:5001"
     extra_hosts:
@@ -241,6 +242,7 @@ services:
       - ./dsls:/dsls:ro
       - ./scripts/init.sh:/init.sh:ro
       - ./scripts/init.py:/init.py:ro
+      - ./scripts/deploy.py:/deploy.py:ro
       - /var/run/docker.sock:/var/run/docker.sock
     entrypoint: ["/bin/sh", "/init.sh"]
     restart: "no"
