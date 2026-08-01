@@ -46,6 +46,24 @@ services:
       timeout: 5s
       retries: 30
 
+  # ── Sandbox (Code Executor) ───────────────
+  sandbox:
+    image: langgenius/dify-sandbox:${DIFY_SANDBOX_VERSION:-latest}
+    container_name: yusta-dify-sandbox
+    restart: unless-stopped
+    environment:
+      API_KEY: ${SANDBOX_API_KEY:-dify-sandbox}
+      GIN_MODE: release
+    volumes:
+      - ./volumes/sandbox:/sandbox/dependencies
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8194/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
   # ── Dify API ─────────────────────────────
   api:
     image: langgenius/dify-api:${DIFY_VERSION:-latest}
@@ -81,6 +99,9 @@ services:
       # Plugin daemon connection
       PLUGIN_DAEMON_URL: ${PLUGIN_DAEMON_URL:-http://plugin_daemon:5002}
       PLUGIN_DAEMON_KEY: ${PLUGIN_DAEMON_KEY:-lYkiYYT6owG+71oLerGzA7GXCgOT++6ovaezWAjpCjf+Sjc3ZtU+qUEi}
+      # Sandbox (code executor)
+      CODE_EXECUTION_ENDPOINT: ${CODE_EXECUTION_ENDPOINT:-http://sandbox:8194}
+      CODE_EXECUTION_API_KEY: ${SANDBOX_API_KEY:-dify-sandbox}
       # Bootstrap vars (for init.py)
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_API_BASE_URL: ${OPENAI_API_BASE_URL:-https://api.openai.com/v1}
@@ -103,6 +124,8 @@ services:
       db:
         condition: service_healthy
       redis:
+        condition: service_healthy
+      sandbox:
         condition: service_healthy
     volumes:
       - ./volumes/app/storage:/app/api/storage
@@ -139,6 +162,9 @@ services:
       STORAGE_LOCAL_PATH: ${STORAGE_LOCAL_PATH:-storage}
       # Trigger URL for workflow execution
       TRIGGER_URL: ${TRIGGER_URL:-http://api:5001}
+      # Sandbox (code executor)
+      CODE_EXECUTION_ENDPOINT: ${CODE_EXECUTION_ENDPOINT:-http://sandbox:8194}
+      CODE_EXECUTION_API_KEY: ${SANDBOX_API_KEY:-dify-sandbox}
       # Hosted OpenAI provider
       HOSTED_OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       HOSTED_OPENAI_API_BASE: ${OPENAI_API_BASE_URL:-https://api.openai.com/v1}
