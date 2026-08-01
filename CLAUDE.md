@@ -65,7 +65,7 @@ docker exec yusta-dify-api python /deploy.py --json dsls/Yusta.yml
 
 ### How the tools work
 
-1. **Edit** — in Dify Studio (localhost:3000) for structural changes, or directly in IDE for prompt/model tweaks
+1. **Edit** — use `dify-workflow edit` CLI for structural changes (nodes, edges, connections). For prompt/model text changes, direct YAML editing in IDE is acceptable. Prefer `dify-workflow edit update-node --data-file` for programmatic node updates where the CLI can maintain YAML integrity better than raw text editing
 2. **Validate** — `dify-workflow validate` catches cycles, missing nodes, frontend crashes, and variable ref errors before Dify sees them
 3. **Deploy** — `deploy.py` replaces placeholder model names (`pro`/`lite`) from `.env`, finds existing app by name, deletes and reimports (idempotent). **Automatically publishes the workflow and creates a new API token** — copy it from JSON output to `.env` as `DIFY_API_KEY` for `test.sh`.
 4. **Test** — `test.sh` sends a question to the Dify Service API and prints the answer. Supports blocking and streaming modes
