@@ -83,14 +83,15 @@ def replace_model_names(content: str) -> str:
 
 def find_admin_account():
     """Find the admin account. Fail if it doesn't exist (init.py must run first)."""
+    from extensions.ext_database import db
     from models.account import Account, Tenant, TenantAccountJoin
 
-    account = Account.query.filter(Account.email == ADMIN_EMAIL).first()
+    account = db.session.query(Account).filter(Account.email == ADMIN_EMAIL).first()
     if not account:
         fail(f"Admin account '{ADMIN_EMAIL}' not found. Run init.py first (docker compose up init).")
 
     join = (
-        TenantAccountJoin.query
+        db.session.query(TenantAccountJoin)
         .filter(TenantAccountJoin.account_id == account.id)
         .order_by(TenantAccountJoin.id.asc())
         .first()
@@ -98,7 +99,7 @@ def find_admin_account():
     if not join:
         fail("No workspace found for admin account.")
 
-    tenant = Tenant.query.filter(Tenant.id == join.tenant_id).first()
+    tenant = db.session.query(Tenant).filter(Tenant.id == join.tenant_id).first()
     if not tenant:
         fail("Workspace not found.")
 
@@ -107,8 +108,9 @@ def find_admin_account():
 
 def find_existing_app(tenant_id: int, app_name: str):
     """Find an existing app by name in the given workspace."""
+    from extensions.ext_database import db
     from models.model import App
-    return App.query.filter(
+    return db.session.query(App).filter(
         App.tenant_id == tenant_id,
         App.name == app_name,
     ).first()
@@ -119,10 +121,73 @@ def delete_app(app_id: str) -> None:
     from models.model import App
     from extensions.ext_database import db
 
-    app = App.query.filter(App.id == app_id).first()
+    app = db.session.query(App).filter(App.id == app_id).first()
     if app:
         db.session.delete(app)
         db.session.commit()
+
+
+def publish_and_token(app_id: str, account, json_mode: bool) -> dict:
+    """
+    Publish the workflow and create/renew API token for the app.
+    Returns dict with keys: workflow_id, api_token
+    """
+    from extensions.ext_database import db
+    from models.model import App, ApiToken
+    from models.workflow import Workflow
+    from services.workflow_service import WorkflowService
+    import uuid
+
+    result = {"workflow_id": None, "api_token": None}
+
+    app = db.session.query(App).filter(App.id == app_id).first()
+    if not app:
+        return result
+
+    # ── Publish workflow ──
+    try:
+        ws = WorkflowService()
+        workflow = ws.publish_workflow(
+            session=db.session,
+            app_model=app,
+            account=account,
+            marked_name="Deploy from CLI",
+            marked_comment="Auto-published by deploy.py",
+        )
+        app.workflow_id = workflow.id
+        db.session.commit()
+        result["workflow_id"] = workflow.id
+        if not json_mode:
+            ok(f"  Published workflow: {workflow.id}")
+    except Exception as e:
+        if not json_mode:
+            warn(f"  Publish failed: {e}")
+        db.session.rollback()
+
+    # ── Create/renew API token ──
+    try:
+        # Delete old tokens for this app
+        old_tokens = db.session.query(ApiToken).filter(ApiToken.app_id == app.id).all()
+        for t in old_tokens:
+            db.session.delete(t)
+
+        # Create new token
+        token = ApiToken()
+        token.id = str(uuid.uuid4())
+        token.app_id = app.id
+        token.token = "app-" + str(uuid.uuid4()).replace("-", "")
+        token.type = "app"
+        db.session.add(token)
+        db.session.commit()
+        result["api_token"] = token.token
+        if not json_mode:
+            ok(f"  API token: {token.token}")
+    except Exception as e:
+        if not json_mode:
+            warn(f"  Token creation failed: {e}")
+        db.session.rollback()
+
+    return result
 
 
 def deploy_one(dsl_path: Path, account, tenant, dsl_service, json_mode: bool) -> dict:
@@ -176,6 +241,14 @@ def deploy_one(dsl_path: Path, account, tenant, dsl_service, json_mode: bool) ->
             result["status"] = tag
             if not json_mode:
                 ok(f"  {tag}: {app_name} (app_id={import_result.app_id})")
+
+            # ── Publish workflow & create API token ──
+            pub_result = publish_and_token(import_result.app_id, account, json_mode)
+            if pub_result["api_token"]:
+                result["api_token"] = pub_result["api_token"]
+            if pub_result["workflow_id"]:
+                result["workflow_id"] = pub_result["workflow_id"]
+
         elif import_result.status == "pending":
             tag = "updated" if existing else "created"
             result["status"] = tag
@@ -224,6 +297,7 @@ def main() -> None:
 
         # Find admin account (must exist from init.py)
         account, tenant = find_admin_account()
+        account.current_tenant = tenant
         if not json_mode:
             log(f"Using workspace: {tenant.name} (id={tenant.id})")
 
