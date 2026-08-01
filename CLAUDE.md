@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **For ANY task involving DSL workflows — editing, testing, deploying, debugging — use ONLY these tools, in this order. Never bypass them. Never touch the database, Dify API, or container internals directly unless a tool is broken and needs fixing.**
 
+**When working with files in `dsls/`, ALWAYS load the `/dify-workflow` skill first: `Skill("dify-workflow")`. It provides node type schemas, validation rules, and CLI usage patterns that prevent Dify import errors.**
+
 ```
 edit DSL  →  validate  →  deploy  →  test
 ```
