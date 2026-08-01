@@ -73,7 +73,7 @@ services:
       # Core
       MODE: api
       MIGRATION_ENABLED: "true"
-      SECRET_KEY: ${SECRET_KEY:-sk-9f73s3ljTXVcMT3Blb3ljTqtsKiGHXVcMT3BlbkFJLK7U}
+      SECRET_KEY: ${SECRET_KEY:-dify-secret-key-change-in-production}
       INIT_PASSWORD: ${INIT_PASSWORD:-}
       # Deployment URLs
       CONSOLE_API_URL: ${CONSOLE_API_URL:-http://localhost:5001}
@@ -146,7 +146,7 @@ services:
     environment:
       MODE: worker
       MIGRATION_ENABLED: "true"
-      SECRET_KEY: ${SECRET_KEY:-sk-9f73s3ljTXVcMT3Blb3ljTqtsKiGHXVcMT3BlbkFJLK7U}
+      SECRET_KEY: ${SECRET_KEY:-dify-secret-key-change-in-production}
       # Database
       DB_USERNAME: ${DB_USERNAME:-dify}
       DB_PASSWORD: ${DB_PASSWORD:-difyai123456}
