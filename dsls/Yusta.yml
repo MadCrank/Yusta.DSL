@@ -1,508 +1,74 @@
+version: 0.6.0
+kind: app
 app:
+  name: Yusta
+  mode: advanced-chat
+  icon: d11e8bd6-d9ca-4d31-863f-8f00750a3141
+  icon_type: image
+  icon_background: '#FFEAD5'
   description: "Ассистент-помощник для написания документации по продукту. \n\nFor\
     \ those who come after (с)"
-  icon: d11e8bd6-d9ca-4d31-863f-8f00750a3141
-  icon_background: null
-  icon_type: image
-  mode: advanced-chat
-  name: Yusta
   use_icon_as_answer_icon: true
-dependencies:
-- current_identifier: null
-  type: marketplace
-  value:
-    marketplace_plugin_unique_identifier: langgenius/openai_api_compatible:0.0.40@1d12045e32101ae6f211d51c0f1f357dad5976b6c1189e19e39b609554cc4f7e
-    version: null
-kind: app
-version: 0.6.0
 workflow:
-  conversation_variables:
-  - description: ''
-    id: d4c742e1-07ea-448c-a179-7b0e2558575f
-    name: question
-    selector:
-    - conversation
-    - question
-    value: []
-    value_type: array[string]
-  - description: Для внесения исправления
-    id: aa13d057-151f-4893-98b8-0d0101aaa085
-    name: article
-    selector:
-    - conversation
-    - article
-    value: ''
-    value_type: string
-  - description: ''
-    id: 5936b68a-3fc4-479f-b15f-cbf69358d99e
-    name: forResultIteration
-    selector:
-    - conversation
-    - forResultIteration
-    value: ''
-    value_type: string
-  - description: ''
-    id: 8791a5c4-3ce5-4905-b7aa-8588789daf8e
-    name: context
-    selector:
-    - conversation
-    - context
-    value: ''
-    value_type: string
-  - description: ''
-    id: ba24652c-8443-4bda-81ec-f06b5902de5f
-    name: keep_alive
-    selector:
-    - conversation
-    - keep_alive
-    value: false
-    value_type: boolean
-  - description: ''
-    id: 8f96b8dd-e993-4f8b-9dae-da6dc03310c1
-    name: type
-    selector:
-    - conversation
-    - type
-    value: none
-    value_type: string
-  environment_variables: []
-  features:
-    file_upload:
-      allowed_file_extensions:
-      - .JPG
-      - .JPEG
-      - .PNG
-      - .GIF
-      - .WEBP
-      - .SVG
-      allowed_file_types:
-      - document
-      - image
-      allowed_file_upload_methods:
-      - local_file
-      enabled: true
-      fileUploadConfig:
-        attachment_image_file_size_limit: 2
-        audio_file_size_limit: 50
-        batch_count_limit: 5
-        file_size_limit: 15
-        file_upload_limit: 20
-        image_file_batch_limit: 10
-        image_file_size_limit: 10
-        single_chunk_attachment_limit: 10
-        video_file_size_limit: 100
-        workflow_file_upload_limit: 10
-      image:
-        enabled: false
-        number_limits: 3
-        transfer_methods:
-        - local_file
-        - remote_url
-      number_limits: 3
-    opening_statement: "Привет!\nЯ — экспертный ИИ-ассистент Юста. Моя специализация\
-      \ — создание и аудит технической документации по программным продуктам.\n\n\
-      Моя цель — помочь  быстро создать качественную документацию, описывающую пользовательский\
-      \ интерфейс, в интерактивном режиме. \n\nЧем тебе помочь сейчас?"
-    retriever_resource:
-      enabled: true
-    sensitive_word_avoidance:
-      enabled: false
-    speech_to_text:
-      enabled: false
-    suggested_questions:
-    - Помочь написать документацию
-    - Провести аудит документации
-    - Кнопка для Севары (потом переименуем)
-    suggested_questions_after_answer:
-      enabled: false
-    text_to_speech:
-      enabled: false
-      language: ''
-      voice: ''
   graph:
-    edges:
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: start
-        targetType: if-else
-      id: 1759249821173-source-1759413282408-target
-      selected: false
-      source: '1759249821173'
-      sourceHandle: source
-      target: '1759413282408'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: llm
-      id: 1759413282408-true-1759251551848-target
-      selected: false
-      source: '1759413282408'
-      sourceHandle: 'true'
-      target: '1759251551848'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: if-else
-      id: 1759413282408-false-1759432952420-target
-      selected: false
-      source: '1759413282408'
-      sourceHandle: 'false'
-      target: '1759432952420'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: assigner
-      id: 1759432952420-true-1759433096374-target
-      selected: false
-      source: '1759432952420'
-      sourceHandle: 'true'
-      target: '1759433096374'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: assigner
-      id: 1759432952420-fc651a52-1e1f-4607-8cd2-5f3dd10708bd-1759433199287-target
-      selected: false
-      source: '1759432952420'
-      sourceHandle: fc651a52-1e1f-4607-8cd2-5f3dd10708bd
-      target: '1759433199287'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: answer
-      id: 1759432952420-false-1759433251847-target
-      selected: false
-      source: '1759432952420'
-      sourceHandle: 'false'
-      target: '1759433251847'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: assigner
-        targetType: answer
-      id: 1759433096374-source-1759438620189-target
-      selected: false
-      source: '1759433096374'
-      sourceHandle: source
-      target: '1759438620189'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: answer
-        targetType: assigner
-      id: answer-source-1759433824010-target
-      selected: false
-      source: answer
-      sourceHandle: source
-      target: '1759433824010'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: llm
-      id: 1759413282408-f0b4c246-9e4c-456a-91ac-55742eddf9ae-1762968397084-target
-      selected: false
-      source: '1759413282408'
-      sourceHandle: f0b4c246-9e4c-456a-91ac-55742eddf9ae
-      target: '1762968397084'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: template-transform
-        targetType: answer
-      id: 17640030900710-source-answer-target
-      selected: false
-      source: '17640030900710'
-      sourceHandle: source
-      target: answer
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: llm
-      id: 1759413282408-b8029ad8-1d22-41ac-8bbd-7df0ebaf2d81-1764090843993-target
-      selected: false
-      source: '1759413282408'
-      sourceHandle: b8029ad8-1d22-41ac-8bbd-7df0ebaf2d81
-      target: '1764090843993'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: llm
-        targetType: if-else
-      id: 1764090843993-source-1764090858027-target
-      selected: false
-      source: '1764090843993'
-      sourceHandle: source
-      target: '1764090858027'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: answer
-      id: 1764090858027-true-1759434378520-target
-      selected: false
-      source: '1764090858027'
-      sourceHandle: 'true'
-      target: '1759434378520'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: assigner
-        targetType: template-transform
-      id: 1764093799038-source-17640030900710-target
-      selected: false
-      source: '1764093799038'
-      sourceHandle: source
-      target: '17640030900710'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: llm
-      id: 1764090858027-false-1762968397084-target
-      selected: false
-      source: '1764090858027'
-      sourceHandle: 'false'
-      target: '1762968397084'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: llm
-        targetType: assigner
-      id: 1762968397084-source-1764093799038-target
-      selected: false
-      source: '1762968397084'
-      sourceHandle: source
-      target: '1764093799038'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: assigner
-        targetType: answer
-      id: 1759433199287-source-1764675296272-target
-      selected: false
-      source: '1759433199287'
-      sourceHandle: source
-      target: '1764675296272'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: llm
-        targetType: template-transform
-      id: 1759251551848-source-1764678080257-target
-      selected: false
-      source: '1759251551848'
-      sourceHandle: source
-      target: '1764678080257'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: template-transform
-        targetType: answer
-      id: 1764678080257-source-1759251728633-target
-      selected: false
-      source: '1764678080257'
-      sourceHandle: source
-      target: '1759251728633'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: assigner
-      id: 1759432952420-f4d3cb4a-c7e6-456a-a29f-d311d5878dfb-1781437544482-target
-      selected: false
-      source: '1759432952420'
-      sourceHandle: f4d3cb4a-c7e6-456a-a29f-d311d5878dfb
-      target: '1781437544482'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: assigner
-        targetType: answer
-      id: 1781437544482-source-1781437973101-target
-      selected: false
-      source: '1781437544482'
-      sourceHandle: source
-      target: '1781437973101'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: llm
-      id: 1759413282408-183589ca-4086-4ad3-9c04-2bb252833606-1781442744055-target
-      source: '1759413282408'
-      sourceHandle: 183589ca-4086-4ad3-9c04-2bb252833606
-      target: '1781442744055'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: llm
-        targetType: assigner
-      id: 1781442744055-source-1781443382747-target
-      source: '1781442744055'
-      sourceHandle: source
-      target: '1781443382747'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: assigner
-        targetType: template-transform
-      id: 1781443382747-source-1781443427193-target
-      source: '1781443382747'
-      sourceHandle: source
-      target: '1781443427193'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: template-transform
-        targetType: answer
-      id: 1781443427193-source-1781443435876-target
-      source: '1781443427193'
-      sourceHandle: source
-      target: '1781443435876'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: answer
-        targetType: assigner
-      id: 1781443435876-source-1781443469748-target
-      source: '1781443435876'
-      sourceHandle: source
-      target: '1781443469748'
-      targetHandle: target
-      type: custom
-      zIndex: 0
     nodes:
-    - data:
+    - id: '1759249821173'
+      type: custom
+      data:
+        type: start
+        title: Начало
         desc: ''
         selected: false
-        title: Начало
-        type: start
         variables: []
-      height: 72
-      id: '1759249821173'
       position:
-        x: -502.81808976887595
-        y: 283.06828692922613
+        x: 30.0
+        y: 700.0
       positionAbsolute:
-        x: -502.81808976887595
-        y: 283.06828692922613
+        x: 30.0
+        y: 700.0
+      width: 242
+      height: 72
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: answer
       type: custom
-      width: 242
-    - data:
+      data:
+        type: answer
+        title: Ответ
+        desc: ''
+        selected: false
+        variables: []
         answer: '{{#17640030900710.output#}}
 
           Двигаемся дальше или нужно что-то /скорректировать?'
-        desc: ''
-        selected: false
-        title: Ответ
-        type: answer
-        variables: []
-      height: 133
-      id: answer
       position:
-        x: 2032.574787076955
-        y: 293.5059449211261
+        x: 1750.0
+        y: 320.9
       positionAbsolute:
-        x: 2032.574787076955
-        y: 293.5059449211261
+        x: 1750.0
+        y: 320.9
+      width: 242
+      height: 133
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1759251551848'
       type: custom
-      width: 242
-    - data:
-        context:
-          enabled: false
-          variable_selector: []
+      data:
+        type: llm
+        title: Аудит
         desc: ''
+        selected: false
+        variables: []
         model:
+          provider: langgenius/openai_api_compatible/openai_api_compatible
+          name: pro
+          mode: chat
           completion_params:
             temperature: 0.7
-          mode: chat
-          name: pro
-          provider: langgenius/openai_api_compatible/openai_api_compatible
         prompt_template:
-        - id: 0009f533-e2a4-4656-ac00-b208b3cefb27
-          role: system
+        - role: system
           text: "Ты — аудитор документации Юста. Твоя задача — анализировать текст\
             \ статьи пользователя и давать дружелюбный, структурированный аудит. \n\
             \n⚠️ Важно:  \n- Используй текст статьи пользователя как основу для анализа.\
@@ -526,10 +92,15 @@ workflow:
             \ Вопрос 2\n\n### \U0001F3C6 Общая оценка\nТребует доработок\n---\n\n\
             5. Внутренний JSON для SGR формируется отдельно (для проверки схемы) и\
             \ не показывается пользователю."
-        - id: 81e75ae1-d585-471d-bc3a-0e09b48b3af5
-          role: user
+        - role: user
           text: '{{#sys.query#}}'
-        selected: false
+        vision:
+          enabled: false
+          configs:
+            variable_selector: []
+        context:
+          enabled: false
+          variable_selector: []
         structured_output:
           schema:
             $schema: http://json-schema.org/draft-07/schema#
@@ -625,161 +196,159 @@ workflow:
             title: Documentation Article Audit Output
             type: object
         structured_output_enabled: true
-        title: Аудит
-        type: llm
-        variables: []
-        vision:
-          enabled: false
-      height: 87
-      id: '1759251551848'
       position:
-        x: 618.4243761723734
-        y: 434.217413480889
+        x: 718.0
+        y: 447.3
       positionAbsolute:
-        x: 618.4243761723734
-        y: 434.217413480889
+        x: 718.0
+        y: 447.3
+      width: 242
+      height: 87
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1759251728633'
       type: custom
-      width: 242
-    - data:
-        answer: '{{#1764678080257.output#}}'
+      data:
+        type: answer
+        title: Ответ 2
         desc: ''
         selected: false
-        title: Ответ 2
-        type: answer
         variables: []
-      height: 101
-      id: '1759251728633'
+        answer: '{{#1764678080257.output#}}'
       position:
-        x: 1434.3918870270477
-        y: 434.217413480889
+        x: 1406.0
+        y: 447.3
       positionAbsolute:
-        x: 1434.3918870270477
-        y: 434.217413480889
+        x: 1406.0
+        y: 447.3
+      width: 242
+      height: 101
       selected: true
       sourcePosition: right
       targetPosition: left
+    - id: '1759413282408'
       type: custom
-      width: 242
-    - data:
+      data:
+        type: if-else
+        title: ЕСЛИ/ИНАЧЕ
+        desc: ''
+        selected: false
         cases:
-        - case_id: b8029ad8-1d22-41ac-8bbd-7df0ebaf2d81
+        - id: b8029ad8-1d22-41ac-8bbd-7df0ebaf2d81
+          case_id: b8029ad8-1d22-41ac-8bbd-7df0ebaf2d81
           conditions:
-          - comparison_operator: contains
-            id: fb400b16-cd84-4073-a0b6-c4751cbc6b70
+          - id: fb400b16-cd84-4073-a0b6-c4751cbc6b70
+            comparison_operator: contains
             value: approve
             varType: string
             variable_selector:
             - conversation
             - type
-          id: b8029ad8-1d22-41ac-8bbd-7df0ebaf2d81
           logical_operator: and
-        - case_id: f0b4c246-9e4c-456a-91ac-55742eddf9ae
+        - id: f0b4c246-9e4c-456a-91ac-55742eddf9ae
+          case_id: f0b4c246-9e4c-456a-91ac-55742eddf9ae
           conditions:
-          - comparison_operator: contains
-            id: 78fe3b2e-9473-4913-ac50-162737523d2b
+          - id: 78fe3b2e-9473-4913-ac50-162737523d2b
+            comparison_operator: contains
             value: synthesis
             varType: string
             variable_selector:
             - conversation
             - type
-          id: f0b4c246-9e4c-456a-91ac-55742eddf9ae
           logical_operator: and
-        - case_id: 'true'
+        - id: 'true'
+          case_id: 'true'
           conditions:
-          - comparison_operator: contains
-            id: bd7359e3-66ee-49bf-81f3-4b4ba89a22d2
+          - id: bd7359e3-66ee-49bf-81f3-4b4ba89a22d2
+            comparison_operator: contains
             value: audit
             varType: string
             variable_selector:
             - conversation
             - type
-          id: 'true'
           logical_operator: and
-        - case_id: 183589ca-4086-4ad3-9c04-2bb252833606
+        - id: 183589ca-4086-4ad3-9c04-2bb252833606
+          case_id: 183589ca-4086-4ad3-9c04-2bb252833606
           conditions:
-          - comparison_operator: contains
-            id: 95c42892-5b3f-47f3-acba-d0750507126c
+          - id: 95c42892-5b3f-47f3-acba-d0750507126c
+            comparison_operator: contains
             value: forSevara
             varType: string
             variable_selector:
             - conversation
             - type
-          id: 183589ca-4086-4ad3-9c04-2bb252833606
           logical_operator: and
-        desc: ''
-        selected: false
-        title: ЕСЛИ/ИНАЧЕ
-        type: if-else
-      height: 267
-      id: '1759413282408'
       position:
-        x: -119.30378987029542
-        y: 304.06828692922613
+        x: 374.0
+        y: 700.0
       positionAbsolute:
-        x: -119.30378987029542
-        y: 304.06828692922613
+        x: 374.0
+        y: 700.0
+      width: 242
+      height: 267
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1759432952420'
       type: custom
-      width: 242
-    - data:
+      data:
+        type: if-else
+        title: ЕСЛИ/ИНАЧЕ 2
+        desc: ''
+        selected: false
         cases:
-        - case_id: fc651a52-1e1f-4607-8cd2-5f3dd10708bd
+        - id: fc651a52-1e1f-4607-8cd2-5f3dd10708bd
+          case_id: fc651a52-1e1f-4607-8cd2-5f3dd10708bd
           conditions:
-          - comparison_operator: contains
-            id: a1d1b2aa-a750-4897-8cc1-1cdc3ae263b9
+          - id: a1d1b2aa-a750-4897-8cc1-1cdc3ae263b9
+            comparison_operator: contains
             value: Провести аудит документации
             varType: string
             variable_selector:
             - sys
             - query
-          id: fc651a52-1e1f-4607-8cd2-5f3dd10708bd
           logical_operator: and
-        - case_id: 'true'
+        - id: 'true'
+          case_id: 'true'
           conditions:
-          - comparison_operator: contains
-            id: 9b4b3542-0e26-414e-ae33-a423e3a1a61c
+          - id: 9b4b3542-0e26-414e-ae33-a423e3a1a61c
+            comparison_operator: contains
             value: Помочь написать документацию
             varType: string
             variable_selector:
             - sys
             - query
-          id: 'true'
           logical_operator: and
-        - case_id: f4d3cb4a-c7e6-456a-a29f-d311d5878dfb
+        - id: f4d3cb4a-c7e6-456a-a29f-d311d5878dfb
+          case_id: f4d3cb4a-c7e6-456a-a29f-d311d5878dfb
           conditions:
-          - comparison_operator: contains
-            id: a3e9793d-12b4-4f10-8740-4dcba7629c24
+          - id: a3e9793d-12b4-4f10-8740-4dcba7629c24
+            comparison_operator: contains
             value: Кнопка для Севары (потом переименуем)
             varType: string
             variable_selector:
             - sys
             - query
-          id: f4d3cb4a-c7e6-456a-a29f-d311d5878dfb
           logical_operator: and
-        desc: ''
-        selected: false
-        title: ЕСЛИ/ИНАЧЕ 2
-        type: if-else
-      height: 291
-      id: '1759432952420'
       position:
-        x: 261.2464319678545
-        y: 848.9795342572593
+        x: 718.0
+        y: 1142.3
       positionAbsolute:
-        x: 261.2464319678545
-        y: 848.9795342572593
+        x: 718.0
+        y: 1142.3
+      width: 242
+      height: 291
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1759433096374'
       type: custom
-      width: 242
-    - data:
+      data:
+        type: assigner
+        title: Назначение переменной
         desc: ''
+        selected: false
         items:
         - input_type: constant
           operation: set
@@ -788,25 +357,32 @@ workflow:
           - conversation
           - type
           write_mode: over-write
-        selected: false
-        title: Назначение переменной
-        type: assigner
+        - input_type: constant
+          operation: set
+          value: false
+          variable_selector:
+          - conversation
+          - sev_active
+          write_mode: over-write
         version: '2'
-      height: 83
-      id: '1759433096374'
       position:
-        x: 623.0191695923615
-        y: 978.5225328987273
+        x: 1062.0
+        y: 1079.1
       positionAbsolute:
-        x: 623.0191695923615
-        y: 978.5225328987273
+        x: 1062.0
+        y: 1079.1
+      width: 242
+      height: 83
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1759433199287'
       type: custom
-      width: 242
-    - data:
+      data:
+        type: assigner
+        title: Назначение переменной 2
         desc: ''
+        selected: false
         items:
         - input_type: constant
           operation: set
@@ -815,46 +391,53 @@ workflow:
           - conversation
           - type
           write_mode: over-write
-        selected: false
-        title: Назначение переменной 2
-        type: assigner
+        - input_type: constant
+          operation: set
+          value: false
+          variable_selector:
+          - conversation
+          - sev_active
+          write_mode: over-write
         version: '2'
-      height: 83
-      id: '1759433199287'
       position:
-        x: 623.0191695923615
-        y: 837.7752742018814
+        x: 1062.0
+        y: 952.7
       positionAbsolute:
-        x: 623.0191695923615
-        y: 837.7752742018814
+        x: 1062.0
+        y: 952.7
+      width: 242
+      height: 83
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1759433251847'
       type: custom
-      width: 242
-    - data:
+      data:
+        type: answer
+        title: Ответ 3
+        desc: ''
+        selected: false
+        variables: []
         answer: Пожалуйста, выбери из двух вариантов, или напиши в чат "Помочь написать
           документацию" / "Провести аудит документации"
-        desc: ''
-        selected: false
-        title: Ответ 3
-        type: answer
-        variables: []
-      height: 147
-      id: '1759433251847'
       position:
-        x: 623.0191695923615
-        y: 1387.6389692116095
+        x: 1062.0
+        y: 1331.8
       positionAbsolute:
-        x: 623.0191695923615
-        y: 1387.6389692116095
+        x: 1062.0
+        y: 1331.8
+      width: 242
+      height: 147
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1759433824010'
       type: custom
-      width: 242
-    - data:
+      data:
+        type: assigner
+        title: Назначение переменной 3
         desc: ''
+        selected: false
         items:
         - input_type: constant
           operation: set
@@ -872,44 +455,46 @@ workflow:
           - conversation
           - article
           write_mode: over-write
-        selected: false
-        title: Назначение переменной 3
-        type: assigner
         version: '2'
-      height: 109
-      id: '1759433824010'
       position:
-        x: 2373.9510191542863
-        y: 293.5059449211261
+        x: 2094.0
+        y: 320.9
       positionAbsolute:
-        x: 2373.9510191542863
-        y: 293.5059449211261
+        x: 2094.0
+        y: 320.9
+      width: 242
+      height: 109
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1759434378520'
       type: custom
-      width: 242
-    - data:
-        answer: Отлично, рада была помочь, обращайся \(^_^)/
+      data:
+        type: answer
+        title: Ответ 4
         desc: ''
         selected: false
-        title: Ответ 4
-        type: answer
         variables: []
-      height: 115
-      id: '1759434378520'
+        answer: Отлично, рада была помочь, обращайся \(^_^)/
       position:
-        x: 1116.981573452598
-        y: 45.18580839667152
+        x: 1406.0
+        y: 68.2
       positionAbsolute:
-        x: 1116.981573452598
-        y: 45.18580839667152
+        x: 1406.0
+        y: 68.2
+      width: 242
+      height: 115
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1759438620189'
       type: custom
-      width: 242
-    - data:
+      data:
+        type: answer
+        title: Ответ 5
+        desc: ''
+        selected: false
+        variables: []
         answer: "Следуй шагам ниже, и всё получится :)\n\n1️⃣ Подготовь данные\n\n\
           Что нужно собрать заранее:\n1. Назначение формы или фичи\n2. Формы, элементы\
           \ и поля\n3. Сценарии использования\n4. Зависимости, настройки и особенности\n\
@@ -929,48 +514,33 @@ workflow:
           \ и логичным.\n\n✅ Быстрая самопроверка\n\nПеред завершением убедись, что\
           \ документ содержит:\n1. Все формы и элементы интерфейса\n2. Логику работы\
           \ формы/ фичи\n3. Все ответы на уточняющие вопросы"
-        desc: ''
-        selected: false
-        title: Ответ 5
-        type: answer
-        variables: []
-      height: 739
-      id: '1759438620189'
       position:
-        x: 1281.336078433609
-        y: 1117.637187450155
+        x: 1406.0
+        y: 1079.1
       positionAbsolute:
-        x: 1281.336078433609
-        y: 1117.637187450155
+        x: 1406.0
+        y: 1079.1
+      width: 242
+      height: 739
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1762968397084'
       type: custom
-      width: 242
-    - data:
-        context:
-          enabled: false
-          variable_selector: []
+      data:
+        type: llm
+        title: Сборщик контекста
         desc: ''
+        selected: false
+        variables: []
         model:
+          provider: langgenius/openai_api_compatible/openai_api_compatible
+          name: pro-2026-03-01
+          mode: chat
           completion_params:
             temperature: 0.2
-          mode: chat
-          name: pro-2026-03-01
-          provider: langgenius/openai_api_compatible/openai_api_compatible
-        prompt_config:
-          jinja2_variables:
-          - value_selector:
-            - conversation
-            - article
-            variable: article
-          - value_selector:
-            - sys
-            - query
-            variable: query
         prompt_template:
-        - id: 793c0f12-9b01-4588-8a7a-9865c4ca52c4
-          role: system
+        - role: system
           text: "Ты — ИИ-ассистент Юста. Твоя задача — на основе текста пользователя\
             \ создать структурированную, читаемую и красивую техническую статью о\
             \ фиче программного продукта.\n\nСтиль:\n- Итоговый текст строгий, формальный,\
@@ -999,22 +569,15 @@ workflow:
             \ списки и подзаголовки для структуры\n- Преобразовывать любой поток текста\
             \ пользователя в нормализованную, красивую документацию\n- Выдавай результат\
             \ только на русском языке"
-        - edition_type: jinja2
-          id: db848324-2bfb-415d-822c-4ffdaaf4b5cd
-          jinja2_text: '{% if article %}
-
-            Пользователь попросил внести в его статью
-
-            {{ article }}
-
-            следующие коррективы
-
-            {% endif %}
-
-            {{ query }}'
-          role: user
+        - role: user
           text: dd
-        selected: false
+        vision:
+          enabled: false
+          configs:
+            variable_selector: []
+        context:
+          enabled: false
+          variable_selector: []
         structured_output:
           schema:
             $schema: http://json-schema.org/draft-07/schema#
@@ -1108,89 +671,106 @@ workflow:
             - properties
             title: Documentation Article Generation Output
             type: object
+        prompt_config:
+          jinja2_variables:
+          - value_selector:
+            - conversation
+            - article
+            variable: article
+          - value_selector:
+            - sys
+            - query
+            variable: query
         structured_output_enabled: true
-        title: Сборщик контекста
-        type: llm
-        variables: []
-        vision:
-          enabled: false
-      height: 87
-      id: '1762968397084'
       position:
-        x: 1110.2018623319782
-        y: 293.5059449211261
+        x: 718.0
+        y: 320.9
       positionAbsolute:
-        x: 1110.2018623319782
-        y: 293.5059449211261
+        x: 718.0
+        y: 320.9
+      width: 242
+      height: 87
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '17640030900710'
       type: custom
-      width: 242
-    - data:
+      data:
+        type: template-transform
+        title: Шаблон (1)
         desc: ''
-        isInIteration: true
-        isInLoop: false
-        iteration_id: '1762969275082'
         selected: false
+        variables:
+        - variable: title
+          label: title
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - '1762968397084'
+          - structured_output
+          - title
+        - variable: purpose
+          label: purpose
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - '1762968397084'
+          - structured_output
+          - purpose
+        - variable: properties
+          label: properties
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - '1762968397084'
+          - structured_output
+          - properties
+        - variable: questions
+          label: questions
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - '1762968397084'
+          - structured_output
+          - questions
         template: "\r\n# {{ title }}\r\n\r\n## \U0001F3AF Краткое описание\r\n{{ purpose\
           \ }}\r\n\r\n---\r\n\r\n## \U0001F4D8 Работа и свойства\r\n{{ properties\
           \ }}\r\n\r\n{% if questions %}\r\n## Уточняющие вопросы\r\n  {% for question\
           \ in questions %} \r\n- {{question}}\r\n  {% endfor %}\r\n{% endif %}"
-        title: Шаблон (1)
-        type: template-transform
-        variables:
-        - value_selector:
-          - '1762968397084'
-          - structured_output
-          - title
-          value_type: object
-          variable: title
-        - value_selector:
-          - '1762968397084'
-          - structured_output
-          - purpose
-          value_type: object
-          variable: purpose
-        - value_selector:
-          - '1762968397084'
-          - structured_output
-          - properties
-          value_type: object
-          variable: properties
-        - value_selector:
-          - '1762968397084'
-          - structured_output
-          - questions
-          value_type: object
-          variable: questions
-      height: 51
-      id: '17640030900710'
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1762969275082'
       position:
-        x: 1738.059243245528
-        y: 293.9331271940771
+        x: 1406.0
+        y: 320.9
       positionAbsolute:
-        x: 1738.059243245528
-        y: 293.9331271940771
+        x: 1406.0
+        y: 320.9
+      width: 242
+      height: 51
       selected: false
       sourcePosition: right
       targetPosition: left
-      type: custom
-      width: 242
       zIndex: 1002
-    - data:
-        context:
-          enabled: false
-          variable_selector: []
+    - id: '1764090843993'
+      type: custom
+      data:
+        type: llm
+        title: Завершитель
+        desc: ''
+        selected: false
         model:
+          provider: langgenius/openai_api_compatible/openai_api_compatible
+          name: lite
+          mode: chat
           completion_params:
             temperature: 0.7
-          mode: chat
-          name: lite
-          provider: langgenius/openai_api_compatible/openai_api_compatible
         prompt_template:
-        - id: d7e702c9-8330-44be-babe-2b2f06645b69
-          role: system
+        - role: system
           text: "Ваша задача — определить, доволен ли пользователь ответом и можно\
             \ ли завершить чат, или он хочет внести изменения и чат нужно продолжить.\n\
             1. Завершить чат \nВыбирайте этот класс только если выполняется все условия:\n\
@@ -1217,7 +797,15 @@ workflow:
             \ приоритет — не допустить преждевременного завершения чата. Завершайте\
             \ диалог только при явном и однозначном подтверждении удовлетворённости\
             \ от пользователя."
-        selected: false
+        - role: user
+          text: '{{#sys.query#}}'
+        vision:
+          enabled: false
+          configs:
+            variable_selector: []
+        context:
+          enabled: false
+          variable_selector: []
         structured_output:
           schema:
             properties:
@@ -1279,54 +867,55 @@ workflow:
             - final_reasoning
             type: object
         structured_output_enabled: true
-        title: Завершитель
-        type: llm
-        vision:
-          enabled: false
-      height: 87
-      id: '1764090843993'
       position:
-        x: 256.6516385478666
-        y: 223.28265514384296
+        x: 718.0
+        y: 131.4
       positionAbsolute:
-        x: 256.6516385478666
-        y: 223.28265514384296
+        x: 718.0
+        y: 131.4
+      width: 242
+      height: 87
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1764090858027'
       type: custom
-      width: 242
-    - data:
+      data:
+        type: if-else
+        title: ЕСЛИ/ИНАЧЕ 3
+        desc: ''
+        selected: false
         cases:
-        - case_id: 'true'
+        - id: 'true'
+          case_id: 'true'
           conditions:
-          - comparison_operator: is
-            id: 4593c1e5-cddc-4e15-b8f8-a58f0575d852
+          - id: 4593c1e5-cddc-4e15-b8f8-a58f0575d852
+            comparison_operator: is
             value: 'false'
             varType: object
             variable_selector:
             - '1764090843993'
             - structured_output
             - continue_chat
-          id: 'true'
           logical_operator: and
-        selected: false
-        title: ЕСЛИ/ИНАЧЕ 3
-        type: if-else
-      height: 147
-      id: '1764090858027'
       position:
-        x: 618.4243761723734
-        y: 105.05676295603192
+        x: 1062.0
+        y: 131.4
       positionAbsolute:
-        x: 618.4243761723734
-        y: 105.05676295603192
+        x: 1062.0
+        y: 131.4
+      width: 242
+      height: 147
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1764093799038'
       type: custom
-      width: 242
-    - data:
+      data:
+        type: assigner
+        title: Назначение переменной 4
+        desc: ''
+        selected: false
         items:
         - input_type: variable
           operation: over-write
@@ -1338,45 +927,92 @@ workflow:
           - conversation
           - question
           write_mode: over-write
-        selected: false
-        title: Назначение переменной 4
-        type: assigner
         version: '2'
-      height: 83
-      id: '1764093799038'
       position:
-        x: 1434.3918870270477
-        y: 293.5059449211261
+        x: 1062.0
+        y: 320.9
       positionAbsolute:
-        x: 1434.3918870270477
-        y: 293.5059449211261
+        x: 1062.0
+        y: 320.9
+      width: 242
+      height: 83
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1764675296272'
       type: custom
-      width: 242
-    - data:
+      data:
+        type: answer
+        title: Ответ 6
+        desc: ''
+        selected: false
+        variables: []
         answer: Отлично, давай я посмотрю твою статью свежим взглядом. Отправляй текст
           — вместе сделаем её ещё лучше :)
-        selected: false
-        title: Ответ 6
-        type: answer
-        variables: []
-      height: 147
-      id: '1764675296272'
       position:
-        x: 1281.336078433609
-        y: 933.1213319337171
+        x: 1406.0
+        y: 952.7
       positionAbsolute:
-        x: 1281.336078433609
-        y: 933.1213319337171
+        x: 1406.0
+        y: 952.7
+      width: 242
+      height: 147
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1764678080257'
       type: custom
-      width: 242
-    - data:
+      data:
+        type: template-transform
+        title: Шаблон 2
+        desc: ''
         selected: false
+        variables:
+        - variable: issues
+          label: issues
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - '1759251551848'
+          - structured_output
+          - issues
+        - variable: suggestions
+          label: suggestions
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - '1759251551848'
+          - structured_output
+          - suggestions
+        - variable: questions
+          label: questions
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - '1759251551848'
+          - structured_output
+          - questions
+        - variable: context_completeness
+          label: context_completeness
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - '1759251551848'
+          - structured_output
+          - context_completeness
+        - variable: overall_score
+          label: overall_score
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - '1759251551848'
+          - structured_output
+          - overall_score
         template: "\r\n# \U0001F4DD Аудит статьи\r\n\r\n{% if issues and issues|length\
           \ > 0 %}\r\n### ⚠️ Найденные проблемы\r\n{% for issue in issues %}- {{ issue\
           \ }}\r\n{% endfor %}\r\n{% else %}\r\nВсе критические элементы статьи заполнены\
@@ -1398,53 +1034,24 @@ workflow:
           \ }}\r\n- Ожидаемый результат: {% if context_completeness.result_clear %}✅{%\
           \ else %}❌{% endif %} — {{ context_completeness.result_clear_reason }}\r\
           \n\r\n### \U0001F3C6 Общая оценка статьи\r\n{{ overall_score }}"
-        title: Шаблон 2
-        type: template-transform
-        variables:
-        - value_selector:
-          - '1759251551848'
-          - structured_output
-          - issues
-          value_type: object
-          variable: issues
-        - value_selector:
-          - '1759251551848'
-          - structured_output
-          - suggestions
-          value_type: object
-          variable: suggestions
-        - value_selector:
-          - '1759251551848'
-          - structured_output
-          - questions
-          value_type: object
-          variable: questions
-        - value_selector:
-          - '1759251551848'
-          - structured_output
-          - context_completeness
-          value_type: object
-          variable: context_completeness
-        - value_selector:
-          - '1759251551848'
-          - structured_output
-          - overall_score
-          value_type: object
-          variable: overall_score
-      height: 51
-      id: '1764678080257'
       position:
-        x: 1110.2018623319782
-        y: 434.217413480889
+        x: 1062.0
+        y: 447.3
       positionAbsolute:
-        x: 1110.2018623319782
-        y: 434.217413480889
+        x: 1062.0
+        y: 447.3
+      width: 242
+      height: 51
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: '1781437544482'
       type: custom
-      width: 242
-    - data:
+      data:
+        type: assigner
+        title: Инициализация Севары
+        desc: ''
+        selected: false
         items:
         - input_type: constant
           operation: set
@@ -1453,556 +1060,885 @@ workflow:
           - conversation
           - type
           write_mode: over-write
-        selected: false
-        title: Назначение переменной 5
-        type: assigner
+        - input_type: constant
+          operation: set
+          value: 0
+          variable_selector:
+          - conversation
+          - sev_block_idx
+          write_mode: over-write
+        - input_type: constant
+          operation: set
+          value: 0
+          variable_selector:
+          - conversation
+          - sev_question_idx
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - sev_first
+          - answers
+          variable_selector:
+          - conversation
+          - sev_answers
+          write_mode: over-write
+        - input_type: constant
+          operation: set
+          value: false
+          variable_selector:
+          - conversation
+          - sev_clarified
+          write_mode: over-write
+        - input_type: constant
+          operation: set
+          value: false
+          variable_selector:
+          - conversation
+          - sev_active
+          write_mode: over-write
+        - input_type: constant
+          operation: set
+          value: ''
+          variable_selector:
+          - conversation
+          - sev_edit_request
+          write_mode: over-write
+        - input_type: constant
+          operation: set
+          value: ''
+          variable_selector:
+          - conversation
+          - sev_qa_text
+          write_mode: over-write
         version: '2'
+      position:
+        x: 1062.0
+        y: 1205.5
+      positionAbsolute:
+        x: 1062.0
+        y: 1205.5
+      width: 242
       height: 83
-      id: '1781437544482'
-      position:
-        x: 623.0191695923615
-        y: 1154.6459480460755
-      positionAbsolute:
-        x: 623.0191695923615
-        y: 1154.6459480460755
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: sev_first
       type: custom
-      width: 242
-    - data:
-        answer: "Следуй шагам ниже, и всё получится :)\n\nЧто нужно собрать заранее:\n\
-          \n1️⃣ Тема и задача статьи\nО чем она? Какую цель преследует?\n\n2️⃣ Для\
-          \ кого статья\nКто аудитория? Какой уровень детализации необходим?\n\n3️⃣\
-          \ Условия и ограничения\nБез каких условий инструкция не сработает?\n\n\
-          4️⃣ Как работает процесс\nРасскажи логику работы, а не только последовательность\
-          \ действий\n\n5️⃣ Пошаговая инструкция\nКакие конкретные действия выполняет\
-          \ пользователь?\n\n6️⃣ Проверь итог\nФинальный документ должен быть:\n \
-          \  1. Формальным и безличным\n   2. Структурированным\n   3. С корректным\
-          \ использованием терминологии\n   4.Читаемым и логичным\n\nЕсли чего-то\
-          \ не хватит я задам тебе уточняющие вопросы"
+      data:
+        type: code
+        title: sev_first
+        desc: ''
         selected: false
-        title: Ответ 7
+        variables:
+        - variable: blocks
+          label: blocks
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - conversation
+          - sev_blocks
+        - variable: block_idx
+          label: block_idx
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - conversation
+          - sev_block_idx
+        - variable: question_idx
+          label: question_idx
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - conversation
+          - sev_question_idx
+        outputs:
+          question:
+            type: string
+            children: null
+          progress:
+            type: string
+            children: null
+          answers:
+            type: array[string]
+            children: null
+        code: "def main(blocks, block_idx, question_idx):\n    bi = int(block_idx\
+          \ or 0)\n    qi = int(question_idx or 0)\n    while bi < len(blocks):\n\
+          \        qs = blocks[bi].get(\"questions\", []) or []\n        if qi < len(qs):\n\
+          \            break\n        bi += 1\n        qi = 0\n    if bi >= len(blocks):\n\
+          \        return {\"question\": \"Вопросы закончились\", \"progress\": \"\
+          \", \"answers\": []}\n    question = blocks[bi][\"questions\"][qi]\n   \
+          \ total = sum(len(b.get(\"questions\", []) or []) for b in blocks)\n   \
+          \ before = sum(len(b.get(\"questions\", []) or []) for b in blocks[:bi])\n\
+          \    progress = \"Вопрос %d из %d · Блок %d/%d: %s\" % (before + qi + 1,\
+          \ total, bi + 1, len(blocks), blocks[bi].get(\"title\", \"\"))\n    return\
+          \ {\"question\": question, \"progress\": progress, \"answers\": []}"
+        code_language: python3
+      position:
+        x: 1406.0
+        y: 1205.5
+      positionAbsolute:
+        x: 1406.0
+        y: 1205.5
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - id: sev_first_answer
+      type: custom
+      data:
         type: answer
-        variables: []
-      height: 403
-      id: '1781437973101'
-      position:
-        x: 963.9877051212818
-        y: 1237.5876486772854
-      positionAbsolute:
-        x: 963.9877051212818
-        y: 1237.5876486772854
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
-        context:
-          enabled: false
-          variable_selector: []
-        model:
-          completion_params:
-            temperature: 0.7
-          mode: chat
-          name: pro
-          provider: langgenius/openai_api_compatible/openai_api_compatible
-        prompt_template:
-        - id: 6a2ef269-b37f-4337-8357-ef7ed6c97cae
-          role: system
-          text: '# Системный промпт для LLM-узла Dify
-
-
-
-            Ты — ИИ-ассистент Юста. Твоя задача — на основе текста пользователя формировать
-            структурированную техническую статью о фиче программного продукта в стиле
-            документации `DynamicContent` и возвращать результат в structured output
-            для Template-узла Dify.
-
-
-
-            ## Язык и стиль
-
-
-
-            - Пиши только на русском языке.
-
-            - Стиль строгий, формальный, безличный.
-
-            - Текст должен оставаться читаемым: короткие абзацы, четкая логика, аккуратные
-            переходы.
-
-            - Используй подзаголовки уровня `###` и маркированные списки `-`.
-
-            - Не используй заголовок первого уровня (`#`).
-
-            - Не добавляй разговорные формулировки, эмодзи, маркетинговые клише и
-            оценочные суждения.
-
-
-
-            ## Стиль оформления (ориентир: DynamicContent)
-
-
-
-            - Начинай с краткого определения сущности фичи.
-
-            - Далее последовательно раскрывай свойства, принцип работы, правила и
-            примеры.
-
-            - Для сложной логики используй блоки: "Имена полей", "Простые элементы",
-            "Сложные элементы", "Повторяющиеся элементы", "Методы", "Ограничения"
-            (или аналогичные по смыслу).
-
-            - Если уместно, добавляй таблицы и примеры в кодовых блоках.
-
-            - Примеры должны быть короткими и технически релевантными.
-
-
-
-            ## Что нужно извлечь из входного текста
-
-
-
-            Проанализируй пользовательский текст и явно отрази в статье:
-
-
-
-            - Цель фичи.
-
-            - Основной пользовательский сценарий.
-
-            - Интерфейсные элементы и их роль.
-
-            - Логику и поведение системы.
-
-            - Ограничения и зависимости.
-
-            - Ожидаемый результат.
-
-
-
-            Если вход неструктурированный, нормализуй его в цельную техническую документацию.
-
-
-
-            ## Жесткая проверка полноты
-
-
-
-            Проверь полноту каждого критического параметра:
-
-
-
-            - цель фичи;
-
-            - пользовательский сценарий;
-
-            - интерфейсные элементы;
-
-            - логика/поведение;
-
-            - ограничения/зависимости;
-
-            - ожидаемый результат.
-
-
-
-            Если хотя бы один параметр отсутствует или раскрыт частично, обязательно
-            сформируй уточняющие вопросы.
-
-
-
-            Требования к вопросам:
-
-
-
-            - дружелюбные;
-
-            - конкретные;
-
-            - однозначные;
-
-            - направлены на закрытие конкретного пробела в контексте.
-
-
-
-            Даже при частичном описании параметра вопрос обязателен.
-
-
-
-            ## Формат результата (обязательно)
-
-
-
-            Верни результат строго в JSON-объекте (для structured output). Поля обязательны,
-            если не указано иное:
-
-
-
-            - `title`: название фичи.
-
-            - `purpose`: краткое описание назначения.
-
-            - `feature_goal`: цель фичи.
-
-            - `user_scenario`: основной пользовательский сценарий.
-
-            - `interface_elements`: интерфейсные элементы и их роль.
-
-            - `system_behavior`: логика и поведение системы.
-
-            - `limitations_dependencies`: ограничения и зависимости.
-
-            - `expected_result`: ожидаемый результат.
-
-            - `questions`: массив уточняющих вопросов (если пробелов нет, передай
-            пустой массив `[]`).
-
-            - `article_markdown`: готовая статья в Markdown без заголовков `#`, с
-            подзаголовками `###` и списками `-`.
-
-
-
-            Дополнительно заполняй служебные блоки качества:
-
-
-
-            - `context_completeness`
-
-            - `style_compliance`
-
-            - `overall_score`
-
-
-
-            ## Требования к `article_markdown`
-
-
-
-            Содержимое `article_markdown` должно быть полноценной статьей в такой
-            структуре:
-
-
-
-            - `## <title>`
-
-            - `### Purpose`
-
-            - `### Properties`
-
-              - `### Цель фичи`
-
-              - `### Пользовательский сценарий`
-
-              - `### Интерфейсные элементы`
-
-              - `### Логика и поведение системы`
-
-              - `### Ограничения и зависимости`
-
-              - `### Ожидаемый результат`
-
-            - `### Уточняющие вопросы` (только если `questions` не пустой)
-
-
-
-            ## Ограничения на вывод
-
-
-
-            - Не выводи служебные комментарии, рассуждения, дисклеймеры.
-
-            - Не описывай ход мыслей.
-
-            - Выводи только JSON, совместимый с JSON-схемой.'
+        title: Первый вопрос Севары
+        desc: ''
         selected: false
-        structured_output:
-          schema:
-            $schema: http://json-schema.org/draft-07/schema#
-            properties:
-              article_markdown:
-                description: 'Итоговая статья в Markdown в стиле DynamicContent (без
-                  заголовков #)'
-                minLength: 50
-                type: string
-              context_completeness:
-                description: Оценка полноты критического контекста (по аналогии с
-                  audit-подходом)
-                properties:
-                  behavior_detailed:
-                    type: boolean
-                  behavior_detailed_reason:
-                    type: string
-                  interface_described:
-                    type: boolean
-                  interface_described_reason:
-                    type: string
-                  limitations_defined:
-                    type: boolean
-                  limitations_defined_reason:
-                    type: string
-                  purpose_clear:
-                    type: boolean
-                  purpose_clear_reason:
-                    type: string
-                  result_clear:
-                    type: boolean
-                  result_clear_reason:
-                    type: string
-                  scenario_clear:
-                    type: boolean
-                  scenario_clear_reason:
-                    type: string
-                required:
-                - purpose_clear
-                - purpose_clear_reason
-                - scenario_clear
-                - scenario_clear_reason
-                - interface_described
-                - interface_described_reason
-                - behavior_detailed
-                - behavior_detailed_reason
-                - limitations_defined
-                - limitations_defined_reason
-                - result_clear
-                - result_clear_reason
-                type: object
-              expected_result:
-                description: 'Плоская переменная: ожидаемый результат'
-                minLength: 1
-                type: string
-              extracted_context:
-                description: Нормализованное извлечение критических параметров из
-                  пользовательского текста
-                properties:
-                  expected_result:
-                    description: Ожидаемый результат
-                    type: string
-                  feature_goal:
-                    description: Цель фичи
-                    type: string
-                  interface_elements:
-                    description: Интерфейсные элементы и их роль
-                    type: string
-                  limitations_dependencies:
-                    description: Ограничения и зависимости
-                    type: string
-                  system_behavior:
-                    description: Логика и поведение системы
-                    type: string
-                  user_scenario:
-                    description: Основной пользовательский сценарий
-                    type: string
-                required:
-                - feature_goal
-                - user_scenario
-                - interface_elements
-                - system_behavior
-                - limitations_dependencies
-                - expected_result
-                type: object
-              feature_goal:
-                description: 'Плоская переменная: цель фичи для Template-узла'
-                minLength: 1
-                type: string
-              interface_elements:
-                description: 'Плоская переменная: интерфейсные элементы и их роль'
-                minLength: 1
-                type: string
-              limitations_dependencies:
-                description: 'Плоская переменная: ограничения и зависимости'
-                minLength: 1
-                type: string
-              overall_score:
-                description: Интегральная оценка качества результата
-                enum:
-                - Отлично
-                - Хорошо
-                - Требует доработок
-                - Недостаточно данных
-                type: string
-              purpose:
-                description: Краткое описание назначения фичи
-                minLength: 20
-                type: string
-              questions:
-                description: Уточняющие вопросы по отсутствующим или частично раскрытым
-                  критическим параметрам
-                items:
-                  minLength: 1
-                  type: string
-                type: array
-              style_compliance:
-                description: Проверка соответствия стилю целевой документации
-                properties:
-                  formal_tone:
-                    description: Стиль строгий, формальный, безличный
-                    type: boolean
-                  has_bullet_lists:
-                    description: Используются маркированные списки с -
-                    type: boolean
-                  has_h3_sections:
-                    description: 'Используются подзаголовки уровня ###'
-                    type: boolean
-                  no_h1:
-                    description: В статье отсутствуют заголовки первого уровня
-                    type: boolean
-                  readable_structure:
-                    description: Структура логична и читаема
-                    type: boolean
-                  russian_language:
-                    description: Текст полностью на русском языке
-                    type: boolean
-                required:
-                - russian_language
-                - formal_tone
-                - no_h1
-                - has_h3_sections
-                - has_bullet_lists
-                - readable_structure
-                type: object
-              system_behavior:
-                description: 'Плоская переменная: логика и поведение системы'
-                minLength: 1
-                type: string
-              title:
-                description: Краткий и технически точный заголовок статьи
-                minLength: 3
-                type: string
-              user_scenario:
-                description: 'Плоская переменная: основной пользовательский сценарий'
-                minLength: 1
-                type: string
-            required:
-            - title
-            - purpose
-            - feature_goal
-            - user_scenario
-            - interface_elements
-            - system_behavior
-            - limitations_dependencies
-            - expected_result
-            - extracted_context
-            - context_completeness
-            - style_compliance
-            - questions
-            - article_markdown
-            - overall_score
-            title: Feature Article Generation (Schema Guided Reasoning)
-            type: object
-        structured_output_enabled: true
-        title: forSevara
-        type: llm
-        vision:
-          enabled: false
-      height: 87
-      id: '1781442744055'
+        variables: []
+        answer: '{{#sev_first.progress#}}
+
+
+          {{#sev_first.question#}}'
       position:
-        x: 261.2464319678545
-        y: 630.3069271486889
+        x: 1750.0
+        y: 1205.5
       positionAbsolute:
-        x: 261.2464319678545
-        y: 630.3069271486889
+        x: 1750.0
+        y: 1205.5
+      width: 244
+      height: 90
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: sev_state
       type: custom
-      width: 242
-    - data:
+      data:
+        type: code
+        title: sev_state
+        desc: ''
+        selected: false
+        variables:
+        - variable: query
+          label: query
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - sys
+          - query
+        - variable: blocks
+          label: blocks
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - conversation
+          - sev_blocks
+        - variable: block_idx
+          label: block_idx
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - conversation
+          - sev_block_idx
+        - variable: question_idx
+          label: question_idx
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - conversation
+          - sev_question_idx
+        - variable: answers
+          label: answers
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - conversation
+          - sev_answers
+        - variable: clarified
+          label: clarified
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - conversation
+          - sev_clarified
+        outputs:
+          answers:
+            type: array[string]
+            children: null
+          block_idx:
+            type: number
+            children: null
+          question_idx:
+            type: number
+            children: null
+          stage:
+            type: string
+            children: null
+          question:
+            type: string
+            children: null
+          progress:
+            type: string
+            children: null
+          qa_text:
+            type: string
+            children: null
+        code: "def main(query, blocks, block_idx, question_idx, answers, clarified):\n\
+          \    ans = list(answers or [])\n    ans.append(query or \"\")\n    bi =\
+          \ int(block_idx or 0)\n    qi = int(question_idx or 0)\n    while True:\n\
+          \        qi += 1\n        while bi < len(blocks):\n            qs = blocks[bi].get(\"\
+          questions\", []) or []\n            if qi < len(qs):\n                break\n\
+          \            bi += 1\n            qi = 0\n        if bi >= len(blocks):\n\
+          \            break\n        if qi < len(blocks[bi].get(\"questions\", [])\
+          \ or []):\n            break\n    qa_lines = []\n    idx = 0\n    for b\
+          \ in blocks:\n        for q in (b.get(\"questions\", []) or []):\n     \
+          \       a = ans[idx] if idx < len(ans) else \"\"\n            qa_lines.append(\"\
+          Вопрос: \" + str(q))\n            qa_lines.append(\"Ответ: \" + str(a))\n\
+          \            idx += 1\n    qa_text = \"\\n\".join(qa_lines)\n    if bi >=\
+          \ len(blocks):\n        stage = \"generate\" if clarified else \"analyze\"\
+          \n        return {\"answers\": ans, \"block_idx\": len(blocks), \"question_idx\"\
+          : 0,\n                \"stage\": stage, \"question\": \"\", \"progress\"\
+          : \"\", \"qa_text\": qa_text}\n    question = blocks[bi][\"questions\"][qi]\n\
+          \    total = sum(len(b.get(\"questions\", []) or []) for b in blocks)\n\
+          \    before = sum(len(b.get(\"questions\", []) or []) for b in blocks[:bi])\n\
+          \    progress = \"Вопрос %d из %d · Блок %d/%d: %s\" % (before + qi + 1,\
+          \ total, bi + 1, len(blocks), blocks[bi].get(\"title\", \"\"))\n    return\
+          \ {\"answers\": ans, \"block_idx\": bi, \"question_idx\": qi,\n        \
+          \    \"stage\": \"ask\", \"question\": question, \"progress\": progress,\
+          \ \"qa_text\": qa_text}"
+        code_language: python3
+      position:
+        x: 718.0
+        y: 700.0
+      positionAbsolute:
+        x: 718.0
+        y: 700.0
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - id: sev_state_assign
+      type: custom
+      data:
+        type: assigner
+        title: Сохранить состояние Севары
+        desc: ''
+        selected: false
+        version: '2'
         items:
         - input_type: variable
           operation: over-write
+          value:
+          - sev_state
+          - answers
           variable_selector:
           - conversation
-          - question
+          - sev_answers
           write_mode: over-write
-        selected: false
-        title: Назначение переменной 6
-        type: assigner
-        version: '2'
-      height: 83
-      id: '1781443382747'
+        - input_type: variable
+          operation: over-write
+          value:
+          - sev_state
+          - block_idx
+          variable_selector:
+          - conversation
+          - sev_block_idx
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - sev_state
+          - question_idx
+          variable_selector:
+          - conversation
+          - sev_question_idx
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - sev_state
+          - qa_text
+          variable_selector:
+          - conversation
+          - sev_qa_text
+          write_mode: over-write
       position:
-        x: 618.4243761723734
-        y: 630.3069271486889
+        x: 1062.0
+        y: 700.0
       positionAbsolute:
-        x: 618.4243761723734
-        y: 630.3069271486889
+        x: 1062.0
+        y: 700.0
+      width: 244
+      height: 90
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: sev_route
       type: custom
-      width: 242
-    - data:
+      data:
+        type: if-else
+        title: Маршрут Севары
+        desc: ''
         selected: false
-        template: "## {{ title }}\r\n\r\n### Purpose\r\n{{ purpose }}\r\n\r\n### Properties\r\
-          \n\r\n### Цель фичи\r\n{{ fg }}\r\n\r\n### Пользовательский сценарий\r\n\
-          {{ us }}\r\n\r\n### Интерфейсные элементы\r\n{{ ie }}\r\n\r\n### Логика\
-          \ и поведение системы\r\n{{ sb }}\r\n\r\n### Ограничения и зависимости\r\
-          \n{{ ld }}\r\n\r\n### Ожидаемый результат\r\n{{ er }}\r\n\r\n{% if questions\
-          \ and questions|length > 0 %}\r\n### Уточняющие вопросы\r\n{% for question\
-          \ in questions %}\r\n- {{ question }}\r\n{% endfor %}\r\n{% endif %}\r\n\
-          ```\r\n"
-        title: Шаблон 3
-        type: template-transform
+        cases:
+        - id: 'true'
+          case_id: 'true'
+          conditions:
+          - id: bf324512-51f1-4f8e-a76f-bbf799a18a53
+            comparison_operator: is
+            value: ask
+            varType: string
+            variable_selector:
+            - sev_state
+            - stage
+          logical_operator: and
+        - id: 1b35fc78-7f51-442d-961b-183baeae5610
+          case_id: 1b35fc78-7f51-442d-961b-183baeae5610
+          conditions:
+          - id: 74659448-ff20-4331-941c-14f865a6c5e6
+            comparison_operator: is
+            value: analyze
+            varType: string
+            variable_selector:
+            - sev_state
+            - stage
+          logical_operator: and
+        - id: 388f134b-3a49-41c2-9de2-8bc8afeddf89
+          case_id: 388f134b-3a49-41c2-9de2-8bc8afeddf89
+          conditions:
+          - id: 3e2363f2-3f3c-4b49-a98b-d7259af53c8c
+            comparison_operator: is
+            value: generate
+            varType: string
+            variable_selector:
+            - sev_state
+            - stage
+          logical_operator: and
+      position:
+        x: 1406.0
+        y: 700.0
+      positionAbsolute:
+        x: 1406.0
+        y: 700.0
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - id: sev_ask_answer
+      type: custom
+      data:
+        type: answer
+        title: Следующий вопрос Севары
+        desc: ''
+        selected: false
+        variables: []
+        answer: '{{#sev_state.progress#}}
+
+
+          {{#sev_state.question#}}'
+      position:
+        x: 1750.0
+        y: 573.6
+      positionAbsolute:
+        x: 1750.0
+        y: 573.6
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - id: sev_analyzer
+      type: custom
+      data:
+        type: llm
+        title: Анализ полноты Севары
+        desc: ''
+        selected: false
+        variables: []
+        model:
+          provider: langgenius/openai_api_compatible/openai_api_compatible
+          name: pro
+          mode: chat
+          completion_params:
+            temperature: 0.2
+        prompt_template:
+        - role: system
+          text: 'Ты — модуль проверки полноты ответов для интервью Севары. У тебя
+            есть протокол вопросов и ответов пользователя (Блок: Вопрос → Ответ).
+            Оцени, достаточно ли информации для написания технической статьи для тех.
+            писателя.
+
+
+            Критические параметры полноты:
+
+            - Тема и задача статьи
+
+            - Для кого статья (аудитория, уровень детализации)
+
+            - Условия и ограничения
+
+            - Как работает процесс (логика, состояния, переходы)
+
+            - Пошаговая инструкция (конкретные действия)
+
+
+            Правила:
+
+            1. Если какой-то параметр отсутствует или раскрыт частично — сформулируй
+            конкретный уточняющий вопрос (в clarifying_questions) и поставь need_more_info
+            = true.
+
+            2. Если всех данных достаточно — need_more_info = false и clarifying_questions
+            = [].
+
+            3. В analysis дай краткое обоснование (2-3 предложения): что раскрыто,
+            чего не хватает.
+
+            4. Не выводи JSON в чат — это только для внутренней логики.'
+        - role: user
+          text: 'Вот протокол интервью:
+
+
+            {{ qa_text }}'
+        vision:
+          enabled: false
+          configs:
+            variable_selector: []
+        memory:
+          enabled: false
+          window:
+            enabled: false
+            size: 50
+        context:
+          enabled: false
+          variable_selector: []
+        structured_output:
+          schema:
+            $schema: http://json-schema.org/draft-07/schema#
+            title: Sevara Completeness Analysis
+            type: object
+            properties:
+              need_more_info:
+                type: boolean
+                description: True, если нужны уточняющие вопросы, иначе false
+              clarifying_questions:
+                type: array
+                items:
+                  type: string
+                  minLength: 1
+                description: Список уточняющих вопросов по недостающим параметрам
+              analysis:
+                type: string
+                description: Краткое обоснование решения о полноте ответов
+            required:
+            - need_more_info
+            - clarifying_questions
+            - analysis
+        retry_config:
+          enabled: false
+          max_retries: 1
+          retry_interval: 1000
+          exponential_backoff:
+            enabled: false
+            multiplier: 2
+            max_interval: 10000
+        prompt_config:
+          jinja2_variables:
+          - value_selector:
+            - conversation
+            - sev_qa_text
+            variable: qa_text
+        structured_output_enabled: true
+      position:
+        x: 1750.0
+        y: 700.0
+      positionAbsolute:
+        x: 1750.0
+        y: 700.0
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - id: sev_analyze_route
+      type: custom
+      data:
+        type: if-else
+        title: Нужны уточнения?
+        desc: ''
+        selected: false
+        cases:
+        - id: 'true'
+          case_id: 'true'
+          conditions:
+          - id: 26ca848d-e1f5-49bf-b3d7-936367208934
+            comparison_operator: is
+            value: 'true'
+            varType: object
+            variable_selector:
+            - sev_analyzer
+            - structured_output
+            - need_more_info
+          logical_operator: and
+      position:
+        x: 2094.0
+        y: 700.0
+      positionAbsolute:
+        x: 2094.0
+        y: 700.0
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - id: sev_add_clarifying
+      type: custom
+      data:
+        type: code
+        title: sev_add_clarifying
+        desc: ''
+        selected: false
         variables:
-        - value_selector:
-          - '1781442744055'
+        - variable: blocks
+          label: blocks
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - conversation
+          - sev_blocks
+        - variable: clarifying_questions
+          label: clarifying_questions
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - sev_analyzer
+          - structured_output
+          - clarifying_questions
+        outputs:
+          blocks:
+            type: array[object]
+            children: null
+          block_idx:
+            type: number
+            children: null
+          question_idx:
+            type: number
+            children: null
+          question:
+            type: string
+            children: null
+          progress:
+            type: string
+            children: null
+        code: "def main(blocks, clarifying_questions):\n    cq = list(clarifying_questions\
+          \ or [])\n    blk = list(blocks or [])\n    if cq:\n        blk.append({\"\
+          title\": \"Уточняющие вопросы\", \"questions\": cq})\n    bi = len(blk)\
+          \ - 1\n    qi = 0\n    question = \"\"\n    progress = \"\"\n    if bi >=\
+          \ 0 and bi < len(blk):\n        qs = blk[bi].get(\"questions\", []) or []\n\
+          \        if qi < len(qs):\n            question = qs[qi]\n            total\
+          \ = sum(len(b.get(\"questions\", []) or []) for b in blk)\n            before\
+          \ = sum(len(b.get(\"questions\", []) or []) for b in blk[:bi])\n       \
+          \     progress = \"Вопрос %d из %d · Блок %d/%d: %s\" % (before + qi + 1,\
+          \ total, bi + 1, len(blk), blk[bi].get(\"title\", \"\"))\n    return {\"\
+          blocks\": blk, \"block_idx\": bi, \"question_idx\": qi, \"question\": question,\
+          \ \"progress\": progress}"
+        code_language: python3
+      position:
+        x: 2438.0
+        y: 700.0
+      positionAbsolute:
+        x: 2438.0
+        y: 700.0
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - id: sev_clarify_assign
+      type: custom
+      data:
+        type: assigner
+        title: Сохранить уточняющие
+        desc: ''
+        selected: false
+        version: '2'
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - sev_add_clarifying
+          - blocks
+          variable_selector:
+          - conversation
+          - sev_blocks
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - sev_add_clarifying
+          - block_idx
+          variable_selector:
+          - conversation
+          - sev_block_idx
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - sev_add_clarifying
+          - question_idx
+          variable_selector:
+          - conversation
+          - sev_question_idx
+          write_mode: over-write
+        - input_type: constant
+          operation: set
+          value: true
+          variable_selector:
+          - conversation
+          - sev_clarified
+          write_mode: over-write
+      position:
+        x: 2782.0
+        y: 700.0
+      positionAbsolute:
+        x: 2782.0
+        y: 700.0
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - id: sev_clarify_answer
+      type: custom
+      data:
+        type: answer
+        title: Уточняющий вопрос
+        desc: ''
+        selected: false
+        variables: []
+        answer: '{{#sev_add_clarifying.progress#}}
+
+
+          {{#sev_add_clarifying.question#}}'
+      position:
+        x: 3126.0
+        y: 700.0
+      positionAbsolute:
+        x: 3126.0
+        y: 700.0
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - id: sev_generator
+      type: custom
+      data:
+        type: llm
+        title: Генератор статьи Севары
+        desc: ''
+        selected: false
+        variables: []
+        model:
+          provider: langgenius/openai_api_compatible/openai_api_compatible
+          name: pro
+          mode: chat
+          completion_params:
+            temperature: 0.3
+        prompt_template:
+        - role: system
+          text: 'Ты — ИИ-ассистент Юста. На основе протокола интервью (Блок: Вопрос
+            → Ответ) создай структурированную техническую статью для тех. писателя.
+
+
+            Требования:
+
+            - Стиль строгий, формальный, безличный.
+
+            - Разбей статью на секции: каждая секция = {heading, content}.
+
+            - content — содержательный текст секции (абзацы, списки -), без заголовков.
+
+            - Покрой: тему и задачу, аудиторию, условия и ограничения, логику процесса,
+            пошаговую инструкцию.
+
+            - Только русский язык.
+
+
+            Верни JSON-объект строго по схеме: title (заголовок статьи) + sections
+            (массив {heading, content}).'
+        - role: user
+          text: 'Протокол интервью:
+
+
+            {{ qa_text }}
+
+
+            {% if edit_request %}
+
+            Пользователь просит внести правки:
+
+            {{ edit_request }}
+
+            {% endif %}'
+        vision:
+          enabled: false
+          configs:
+            variable_selector: []
+        memory:
+          enabled: false
+          window:
+            enabled: false
+            size: 50
+        context:
+          enabled: false
+          variable_selector: []
+        structured_output:
+          schema:
+            $schema: http://json-schema.org/draft-07/schema#
+            title: Sevara Article Generation
+            type: object
+            properties:
+              title:
+                type: string
+                description: Заголовок статьи
+              sections:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    heading:
+                      type: string
+                      description: Заголовок секции
+                    content:
+                      type: string
+                      description: Содержимое секции
+                  required:
+                  - heading
+                  - content
+                description: Секции статьи
+            required:
+            - title
+            - sections
+        retry_config:
+          enabled: false
+          max_retries: 1
+          retry_interval: 1000
+          exponential_backoff:
+            enabled: false
+            multiplier: 2
+            max_interval: 10000
+        prompt_config:
+          jinja2_variables:
+          - value_selector:
+            - conversation
+            - sev_qa_text
+            variable: qa_text
+          - value_selector:
+            - conversation
+            - sev_edit_request
+            variable: edit_request
+        structured_output_enabled: true
+      position:
+        x: 1750.0
+        y: 826.4
+      positionAbsolute:
+        x: 1750.0
+        y: 826.4
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - id: sev_template
+      type: custom
+      data:
+        type: template-transform
+        title: Шаблон статьи Севары
+        desc: ''
+        selected: false
+        variables:
+        - variable: title
+          label: title
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - sev_generator
           - structured_output
           - title
-          value_type: object
-          variable: title
-        - value_selector:
-          - '1781442744055'
+        - variable: sections
+          label: sections
+          type: text-input
+          required: true
+          options: []
+          value_selector:
+          - sev_generator
           - structured_output
-          - purpose
-          value_type: object
-          variable: purpose
-        - value_selector: []
-          variable: ''
-        - value_selector: []
-          variable: ''
-        - value_selector: []
-          variable: ''
-        - value_selector: []
-          variable: ''
-        - value_selector: []
-          variable: ''
-      height: 51
-      id: '1781443427193'
+          - sections
+        template: '# {{ title }}
+
+
+          {% for section in sections %}
+
+          ## {{ section.heading }}
+
+          {{ section.content }}
+
+
+          {% endfor %}'
       position:
-        x: 963.9877051212818
-        y: 630.3069271486889
+        x: 2094.0
+        y: 826.4
       positionAbsolute:
-        x: 963.9877051212818
-        y: 630.3069271486889
+        x: 2094.0
+        y: 826.4
+      width: 244
+      height: 90
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: sev_final_answer
       type: custom
-      width: 242
-    - data:
-        answer: ''
-        selected: false
-        title: Ответ 8
+      data:
         type: answer
+        title: Статья Севары
+        desc: ''
+        selected: false
         variables: []
-      height: 83
-      id: '1781443435876'
+        answer: '{{#sev_template.output#}}
+
+
+          Двигаемся дальше или нужно что-то /скорректировать?'
       position:
-        x: 1281.336078433609
-        y: 630.3069271486889
+        x: 2438.0
+        y: 826.4
       positionAbsolute:
-        x: 1281.336078433609
-        y: 630.3069271486889
+        x: 2438.0
+        y: 826.4
+      width: 244
+      height: 90
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: sev_done
       type: custom
-      width: 242
-    - data:
+      data:
+        type: assigner
+        title: Статья Севары готова
+        desc: ''
+        selected: false
+        version: '2'
         items:
         - input_type: constant
           operation: set
@@ -2011,25 +1947,773 @@ workflow:
           - conversation
           - type
           write_mode: over-write
-        selected: false
-        title: Назначение переменной 7
-        type: assigner
-        version: '2'
-      height: 83
-      id: '1781443469748'
+        - input_type: constant
+          operation: set
+          value: true
+          variable_selector:
+          - conversation
+          - sev_active
+          write_mode: over-write
+        - input_type: constant
+          operation: set
+          value: ''
+          variable_selector:
+          - conversation
+          - sev_edit_request
+          write_mode: over-write
       position:
-        x: 1601.0746870322757
-        y: 630.3069271486889
+        x: 2782.0
+        y: 826.4
       positionAbsolute:
-        x: 1601.0746870322757
-        y: 630.3069271486889
+        x: 2782.0
+        y: 826.4
+      width: 244
+      height: 90
       selected: false
       sourcePosition: right
       targetPosition: left
+    - id: sev_edit_route
       type: custom
-      width: 242
+      data:
+        type: if-else
+        title: Правка Севары?
+        desc: ''
+        selected: false
+        cases:
+        - id: 'true'
+          case_id: 'true'
+          conditions:
+          - id: 58ea59f8-6a37-4755-955e-9991bf72e506
+            comparison_operator: is
+            value: 'true'
+            varType: object
+            variable_selector:
+            - conversation
+            - sev_active
+          logical_operator: and
+      position:
+        x: 1406.0
+        y: 194.5
+      positionAbsolute:
+        x: 1406.0
+        y: 194.5
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - id: sev_edit_assign
+      type: custom
+      data:
+        type: assigner
+        title: Запомнить правку Севары
+        desc: ''
+        selected: false
+        version: '2'
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - sys
+          - query
+          variable_selector:
+          - conversation
+          - sev_edit_request
+          write_mode: over-write
+      position:
+        x: 1750.0
+        y: 194.5
+      positionAbsolute:
+        x: 1750.0
+        y: 194.5
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    edges:
+    - id: 1759249821173-source-1759413282408-target
+      source: '1759249821173'
+      target: '1759413282408'
+      sourceHandle: source
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: start
+        targetType: if-else
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1759413282408-true-1759251551848-target
+      source: '1759413282408'
+      target: '1759251551848'
+      sourceHandle: 'true'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: llm
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1759413282408-false-1759432952420-target
+      source: '1759413282408'
+      target: '1759432952420'
+      sourceHandle: 'false'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: if-else
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1759432952420-true-1759433096374-target
+      source: '1759432952420'
+      target: '1759433096374'
+      sourceHandle: 'true'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: assigner
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1759432952420-fc651a52-1e1f-4607-8cd2-5f3dd10708bd-1759433199287-target
+      source: '1759432952420'
+      target: '1759433199287'
+      sourceHandle: fc651a52-1e1f-4607-8cd2-5f3dd10708bd
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: assigner
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1759432952420-false-1759433251847-target
+      source: '1759432952420'
+      target: '1759433251847'
+      sourceHandle: 'false'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: answer
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1759433096374-source-1759438620189-target
+      source: '1759433096374'
+      target: '1759438620189'
+      sourceHandle: source
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: assigner
+        targetType: answer
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: answer-source-1759433824010-target
+      source: answer
+      target: '1759433824010'
+      sourceHandle: source
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: answer
+        targetType: assigner
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1759413282408-f0b4c246-9e4c-456a-91ac-55742eddf9ae-1762968397084-target
+      source: '1759413282408'
+      target: '1762968397084'
+      sourceHandle: f0b4c246-9e4c-456a-91ac-55742eddf9ae
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: llm
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 17640030900710-source-answer-target
+      source: '17640030900710'
+      target: answer
+      sourceHandle: source
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: template-transform
+        targetType: answer
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1759413282408-b8029ad8-1d22-41ac-8bbd-7df0ebaf2d81-1764090843993-target
+      source: '1759413282408'
+      target: '1764090843993'
+      sourceHandle: b8029ad8-1d22-41ac-8bbd-7df0ebaf2d81
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: llm
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1764090843993-source-1764090858027-target
+      source: '1764090843993'
+      target: '1764090858027'
+      sourceHandle: source
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: llm
+        targetType: if-else
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1764090858027-true-1759434378520-target
+      source: '1764090858027'
+      target: '1759434378520'
+      sourceHandle: 'true'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: answer
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1764093799038-source-17640030900710-target
+      source: '1764093799038'
+      target: '17640030900710'
+      sourceHandle: source
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: assigner
+        targetType: template-transform
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1762968397084-source-1764093799038-target
+      source: '1762968397084'
+      target: '1764093799038'
+      sourceHandle: source
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: llm
+        targetType: assigner
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1759433199287-source-1764675296272-target
+      source: '1759433199287'
+      target: '1764675296272'
+      sourceHandle: source
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: assigner
+        targetType: answer
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1759251551848-source-1764678080257-target
+      source: '1759251551848'
+      target: '1764678080257'
+      sourceHandle: source
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: llm
+        targetType: template-transform
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1764678080257-source-1759251728633-target
+      source: '1764678080257'
+      target: '1759251728633'
+      sourceHandle: source
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: template-transform
+        targetType: answer
+        isInIteration: false
+        isInLoop: false
+      selected: false
+    - id: 1759413282408-183589ca-4086-4ad3-9c04-2bb252833606-sev_state-target
+      source: '1759413282408'
+      target: sev_state
+      sourceHandle: 183589ca-4086-4ad3-9c04-2bb252833606
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: sev_state--sev_state_assign-target
+      source: sev_state
+      target: sev_state_assign
+      sourceHandle: ''
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: code
+        targetType: assigner
+        isInIteration: false
+        isInLoop: false
+    - id: sev_state_assign--sev_route-target
+      source: sev_state_assign
+      target: sev_route
+      sourceHandle: ''
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: assigner
+        targetType: if-else
+        isInIteration: false
+        isInLoop: false
+    - id: sev_route-true-sev_ask_answer-target
+      source: sev_route
+      target: sev_ask_answer
+      sourceHandle: 'true'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: answer
+        isInIteration: false
+        isInLoop: false
+    - id: sev_route-1b35fc78-7f51-442d-961b-183baeae5610-sev_analyzer-target
+      source: sev_route
+      target: sev_analyzer
+      sourceHandle: 1b35fc78-7f51-442d-961b-183baeae5610
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: llm
+        isInIteration: false
+        isInLoop: false
+    - id: sev_route-388f134b-3a49-41c2-9de2-8bc8afeddf89-sev_generator-target
+      source: sev_route
+      target: sev_generator
+      sourceHandle: 388f134b-3a49-41c2-9de2-8bc8afeddf89
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: llm
+        isInIteration: false
+        isInLoop: false
+    - id: sev_analyzer--sev_analyze_route-target
+      source: sev_analyzer
+      target: sev_analyze_route
+      sourceHandle: ''
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: llm
+        targetType: if-else
+        isInIteration: false
+        isInLoop: false
+    - id: sev_analyze_route-true-sev_add_clarifying-target
+      source: sev_analyze_route
+      target: sev_add_clarifying
+      sourceHandle: 'true'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: sev_add_clarifying--sev_clarify_assign-target
+      source: sev_add_clarifying
+      target: sev_clarify_assign
+      sourceHandle: ''
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: code
+        targetType: assigner
+        isInIteration: false
+        isInLoop: false
+    - id: sev_clarify_assign--sev_clarify_answer-target
+      source: sev_clarify_assign
+      target: sev_clarify_answer
+      sourceHandle: ''
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: assigner
+        targetType: answer
+        isInIteration: false
+        isInLoop: false
+    - id: sev_analyze_route-false-sev_generator-target
+      source: sev_analyze_route
+      target: sev_generator
+      sourceHandle: 'false'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: llm
+        isInIteration: false
+        isInLoop: false
+    - id: sev_generator--sev_template-target
+      source: sev_generator
+      target: sev_template
+      sourceHandle: ''
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: llm
+        targetType: template-transform
+        isInIteration: false
+        isInLoop: false
+    - id: sev_template--sev_final_answer-target
+      source: sev_template
+      target: sev_final_answer
+      sourceHandle: ''
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: template-transform
+        targetType: answer
+        isInIteration: false
+        isInLoop: false
+    - id: sev_final_answer--sev_done-target
+      source: sev_final_answer
+      target: sev_done
+      sourceHandle: ''
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: answer
+        targetType: assigner
+        isInIteration: false
+        isInLoop: false
+    - id: 1764090858027-false-sev_edit_route-target
+      source: '1764090858027'
+      target: sev_edit_route
+      sourceHandle: 'false'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: if-else
+        isInIteration: false
+        isInLoop: false
+    - id: sev_edit_route-true-sev_edit_assign-target
+      source: sev_edit_route
+      target: sev_edit_assign
+      sourceHandle: 'true'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: assigner
+        isInIteration: false
+        isInLoop: false
+    - id: sev_edit_assign--sev_generator-target
+      source: sev_edit_assign
+      target: sev_generator
+      sourceHandle: ''
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: assigner
+        targetType: llm
+        isInIteration: false
+        isInLoop: false
+    - id: sev_edit_route-false-1762968397084-target
+      source: sev_edit_route
+      target: '1762968397084'
+      sourceHandle: 'false'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: llm
+        isInIteration: false
+        isInLoop: false
+    - id: 1759432952420-f4d3cb4a-c7e6-456a-a29f-d311d5878dfb-sev_first-target
+      source: '1759432952420'
+      target: sev_first
+      sourceHandle: f4d3cb4a-c7e6-456a-a29f-d311d5878dfb
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: sev_first-source-1781437544482-target
+      source: sev_first
+      target: '1781437544482'
+      sourceHandle: source
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: code
+        targetType: assigner
+        isInIteration: false
+        isInLoop: false
+    - id: 1781437544482-source-sev_first_answer-target
+      source: '1781437544482'
+      target: sev_first_answer
+      sourceHandle: source
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: assigner
+        targetType: answer
+        isInIteration: false
+        isInLoop: false
     viewport:
       x: 104.174903378576
       y: -127.05582444056711
       zoom: 0.6893473991490408
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - document
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: "Привет!\nЯ — экспертный ИИ-ассистент Юста. Моя специализация\
+      \ — создание и аудит технической документации по программным продуктам.\n\n\
+      Моя цель — помочь  быстро создать качественную документацию, описывающую пользовательский\
+      \ интерфейс, в интерактивном режиме. \n\nЧем тебе помочь сейчас?"
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions:
+    - Помочь написать документацию
+    - Провести аудит документации
+    - Кнопка для Севары (потом переименуем)
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  environment_variables: []
+  conversation_variables:
+  - description: ''
+    id: d4c742e1-07ea-448c-a179-7b0e2558575f
+    name: question
+    selector:
+    - conversation
+    - question
+    value: []
+    value_type: array[string]
+  - description: Для внесения исправления
+    id: aa13d057-151f-4893-98b8-0d0101aaa085
+    name: article
+    selector:
+    - conversation
+    - article
+    value: ''
+    value_type: string
+  - description: ''
+    id: 5936b68a-3fc4-479f-b15f-cbf69358d99e
+    name: forResultIteration
+    selector:
+    - conversation
+    - forResultIteration
+    value: ''
+    value_type: string
+  - description: ''
+    id: 8791a5c4-3ce5-4905-b7aa-8588789daf8e
+    name: context
+    selector:
+    - conversation
+    - context
+    value: ''
+    value_type: string
+  - description: ''
+    id: ba24652c-8443-4bda-81ec-f06b5902de5f
+    name: keep_alive
+    selector:
+    - conversation
+    - keep_alive
+    value: false
+    value_type: boolean
+  - description: ''
+    id: 8f96b8dd-e993-4f8b-9dae-da6dc03310c1
+    name: type
+    selector:
+    - conversation
+    - type
+    value: none
+    value_type: string
+  - description: Блоки вопросов интервью Севары
+    id: 698b3c90-1265-48bf-a519-92d4c782931f
+    name: sev_blocks
+    selector:
+    - conversation
+    - sev_blocks
+    value:
+    - title: Тема и задача статьи
+      questions:
+      - О чем статья? Какую цель она преследует?
+      - Какую задачу решает статья для читателя?
+    - title: Для кого статья
+      questions:
+      - Кто целевая аудитория?
+      - Какой уровень детализации необходим?
+    - title: Условия и ограничения
+      questions:
+      - Без каких условий инструкция не сработает?
+      - Есть ли ограничения по терминологии или формату?
+    - title: Как работает процесс
+      questions:
+      - Расскажи логику работы процесса, а не только последовательность действий.
+      - Какие состояния и переходы есть в процессе?
+    - title: Пошаговая инструкция
+      questions:
+      - Какие конкретные действия выполняет пользователь?
+      - Что происходит после каждого шага?
+    value_type: array[object]
+  - description: Индекс текущего блока вопросов
+    id: 7858e75a-3d38-46d5-9785-934692750874
+    name: sev_block_idx
+    selector:
+    - conversation
+    - sev_block_idx
+    value: 0
+    value_type: number
+  - description: Индекс текущего вопроса внутри блока
+    id: 37b5b547-32a0-4674-ae90-94b349ec4268
+    name: sev_question_idx
+    selector:
+    - conversation
+    - sev_question_idx
+    value: 0
+    value_type: number
+  - description: Ответы пользователя в порядке вопросов
+    id: 47c95bf1-5df8-4563-967d-bd2d0ca8a066
+    name: sev_answers
+    selector:
+    - conversation
+    - sev_answers
+    value: []
+    value_type: array[string]
+  - description: Был ли уже раунд уточняющих вопросов
+    id: 7e5b0659-f5ce-4f7d-95f5-b376c18fd7f3
+    name: sev_clarified
+    selector:
+    - conversation
+    - sev_clarified
+    value: false
+    value_type: boolean
+  - description: Активен ли approve-цикл Севары (признак, что статья Севары)
+    id: 6f1d4826-74bd-41ed-b4fd-7d9020d4f1c1
+    name: sev_active
+    selector:
+    - conversation
+    - sev_active
+    value: false
+    value_type: boolean
+  - description: Текст правки из approve-цикла
+    id: e1e06312-4e77-48b7-b73a-991462428538
+    name: sev_edit_request
+    selector:
+    - conversation
+    - sev_edit_request
+    value: ''
+    value_type: string
+  - description: Плоский текст Вопрос/Ответ для LLM-узлов
+    id: 6d58ed50-3a3e-4680-866d-1fd3cdb18b5a
+    name: sev_qa_text
+    selector:
+    - conversation
+    - sev_qa_text
+    value: ''
+    value_type: string
   rag_pipeline_variables: []
+dependencies:
+- name: ''
+  type: marketplace
+  version: ''
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai_api_compatible:0.0.40@1d12045e32101ae6f211d51c0f1f357dad5976b6c1189e19e39b609554cc4f7e
+    version: null
