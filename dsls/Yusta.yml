@@ -1117,23 +1117,29 @@ workflow:
           - conversation
           - sev_active
           write_mode: over-write
-        - input_type: constant
-          operation: set
-          value: ''
+        - input_type: variable
+          operation: over-write
+          value:
+          - sev_reset
+          - edit_request
           variable_selector:
           - conversation
           - sev_edit_request
           write_mode: over-write
-        - input_type: constant
-          operation: set
-          value: ''
+        - input_type: variable
+          operation: over-write
+          value:
+          - sev_reset
+          - qa_text
           variable_selector:
           - conversation
           - sev_qa_text
           write_mode: over-write
-        - input_type: constant
-          operation: set
-          value: ''
+        - input_type: variable
+          operation: over-write
+          value:
+          - sev_reset
+          - article
           variable_selector:
           - conversation
           - sev_article
@@ -1205,10 +1211,10 @@ workflow:
           \ {\"question\": question, \"progress\": progress, \"answers\": []}"
         code_language: python3
       position:
-        x: 718.0
+        x: 1406.0
         y: 68.2
       positionAbsolute:
-        x: 718.0
+        x: 1406.0
         y: 68.2
       width: 244
       height: 90
@@ -1228,10 +1234,10 @@ workflow:
 
           {{#sev_first.question#}}'
       position:
-        x: 1406.0
+        x: 1750.0
         y: 68.2
       positionAbsolute:
-        x: 1406.0
+        x: 1750.0
         y: 68.2
       width: 244
       height: 90
@@ -2019,9 +2025,8 @@ workflow:
           - conversation
           - sev_active
           write_mode: over-write
-        - input_type: constant
-          operation: set
-          value: ''
+        - input_type: variable
+          operation: clear
           variable_selector:
           - conversation
           - sev_edit_request
@@ -2150,6 +2155,15 @@ workflow:
           answers:
             type: array[string]
             children: null
+          edit_request:
+            type: string
+            children: null
+          qa_text:
+            type: string
+            children: null
+          article:
+            type: string
+            children: null
         code: "def main():\n    default_blocks = [\n        {\"title\": \"Тема и задача\
           \ статьи\", \"questions\": [\"О чем статья? Какую цель она преследует?\"\
           , \"Какую задачу решает статья для читателя?\"]},\n        {\"title\": \"\
@@ -2162,14 +2176,15 @@ workflow:
           \ есть в процессе?\"]},\n        {\"title\": \"Пошаговая инструкция\", \"\
           questions\": [\"Какие конкретные действия выполняет пользователь?\", \"\
           Что происходит после каждого шага?\"]},\n    ]\n    return {\"blocks\":\
-          \ default_blocks, \"answers\": []}"
+          \ default_blocks, \"answers\": [], \"edit_request\": \"\", \"qa_text\":\
+          \ \"\", \"article\": \"\"}"
         code_language: python3
       position:
-        x: 3774.0
-        y: 227.0
+        x: 718.0
+        y: 68.2
       positionAbsolute:
-        x: 3774.0
-        y: 227.0
+        x: 718.0
+        y: 68.2
       width: 244
       height: 90
       selected: false
