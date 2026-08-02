@@ -108,6 +108,10 @@ services:
       # Sandbox (code executor)
       CODE_EXECUTION_ENDPOINT: ${CODE_EXECUTION_ENDPOINT:-http://sandbox:8194}
       CODE_EXECUTION_API_KEY: ${SANDBOX_API_KEY:-dify-sandbox}
+      # Code node array limits (Sevara interview keeps all answers in an array;
+      # default Dify cap is 30 elements — raise to fit 35+ interview questions)
+      CODE_MAX_STRING_ARRAY_LENGTH: ${CODE_MAX_STRING_ARRAY_LENGTH:-200}
+      CODE_MAX_OBJECT_ARRAY_LENGTH: ${CODE_MAX_OBJECT_ARRAY_LENGTH:-200}
       # Bootstrap vars (for init.py)
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_API_BASE_URL: ${OPENAI_API_BASE_URL:-https://api.openai.com/v1}
@@ -176,6 +180,9 @@ services:
       # Sandbox (code executor)
       CODE_EXECUTION_ENDPOINT: ${CODE_EXECUTION_ENDPOINT:-http://sandbox:8194}
       CODE_EXECUTION_API_KEY: ${SANDBOX_API_KEY:-dify-sandbox}
+      # Code node array limits (must match api)
+      CODE_MAX_STRING_ARRAY_LENGTH: ${CODE_MAX_STRING_ARRAY_LENGTH:-200}
+      CODE_MAX_OBJECT_ARRAY_LENGTH: ${CODE_MAX_OBJECT_ARRAY_LENGTH:-200}
       # Plugin daemon connection (worker executes streaming tasks and needs it)
       PLUGIN_DAEMON_URL: ${PLUGIN_DAEMON_URL:-http://plugin_daemon:5002}
       PLUGIN_DAEMON_KEY: ${PLUGIN_DAEMON_KEY:-lYkiYYT6owG+71oLerGzA7GXCgOT++6ovaezWAjpCjf+Sjc3ZtU+qUEi}
