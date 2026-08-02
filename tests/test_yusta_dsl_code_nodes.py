@@ -116,15 +116,17 @@ def test_sev_add_clarifying_appends_block_and_points_to_first_q(code_nodes):
     assert res["question"] == "Уточнение 1"
     assert res["block_idx"] == len(DEFAULT_BLOCKS)
     assert res["progress"] == "Вопрос 11 из 12 · Блок 6/6: Уточняющие вопросы"
+    assert res["stage"] == "ask"
 
 
-def test_sev_add_clarifying_no_questions_leaves_blocks_unchanged(code_nodes):
+def test_sev_add_clarifying_no_questions_goes_to_generate(code_nodes):
     main = code_nodes["sev_add_clarifying"]
     res = main(DEFAULT_BLOCKS, [])
     assert len(res["blocks"]) == len(DEFAULT_BLOCKS)
-    # No clarifying block appended → question points to last real question's end;
-    # the returned question is the last block's last question (invariant: not empty).
+    # Empty clarifying list → no block appended, stage=generate (skip asking).
     assert res["blocks"][-1]["title"] != "Уточняющие вопросы"
+    assert res["stage"] == "generate"
+    assert res["question"] == ""
 
 
 def test_reentry_resets_counters_via_assigner_defaults():

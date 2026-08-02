@@ -44,10 +44,10 @@ workflow:
           Двигаемся дальше или нужно что-то /скорректировать?'
       position:
         x: 1750.0
-        y: 320.9
+        y: 447.3
       positionAbsolute:
         x: 1750.0
-        y: 320.9
+        y: 447.3
       width: 242
       height: 133
       selected: false
@@ -198,10 +198,10 @@ workflow:
         structured_output_enabled: true
       position:
         x: 718.0
-        y: 447.3
+        y: 573.6
       positionAbsolute:
         x: 718.0
-        y: 447.3
+        y: 573.6
       width: 242
       height: 87
       selected: false
@@ -218,10 +218,10 @@ workflow:
         answer: '{{#1764678080257.output#}}'
       position:
         x: 1406.0
-        y: 447.3
+        y: 573.6
       positionAbsolute:
         x: 1406.0
-        y: 447.3
+        y: 573.6
       width: 242
       height: 101
       selected: true
@@ -235,6 +235,17 @@ workflow:
         desc: ''
         selected: false
         cases:
+        - id: 40bb5ffc-6095-47e9-9f48-99be4ad8b439
+          case_id: 40bb5ffc-6095-47e9-9f48-99be4ad8b439
+          conditions:
+          - id: 3cd11e9d-fbbb-422a-9799-ad6142e76fe6
+            comparison_operator: contains
+            value: Кнопка для Севары (потом переименуем)
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          logical_operator: and
         - id: b8029ad8-1d22-41ac-8bbd-7df0ebaf2d81
           case_id: b8029ad8-1d22-41ac-8bbd-7df0ebaf2d81
           conditions:
@@ -333,10 +344,10 @@ workflow:
           logical_operator: and
       position:
         x: 718.0
-        y: 1142.3
+        y: 1205.5
       positionAbsolute:
         x: 718.0
-        y: 1142.3
+        y: 1205.5
       width: 242
       height: 291
       selected: false
@@ -367,10 +378,10 @@ workflow:
         version: '2'
       position:
         x: 1062.0
-        y: 1079.1
+        y: 1205.5
       positionAbsolute:
         x: 1062.0
-        y: 1079.1
+        y: 1205.5
       width: 242
       height: 83
       selected: false
@@ -401,10 +412,10 @@ workflow:
         version: '2'
       position:
         x: 1062.0
-        y: 952.7
+        y: 1079.1
       positionAbsolute:
         x: 1062.0
-        y: 952.7
+        y: 1079.1
       width: 242
       height: 83
       selected: false
@@ -458,10 +469,10 @@ workflow:
         version: '2'
       position:
         x: 2094.0
-        y: 320.9
+        y: 447.3
       positionAbsolute:
         x: 2094.0
-        y: 320.9
+        y: 447.3
       width: 242
       height: 109
       selected: false
@@ -478,10 +489,10 @@ workflow:
         answer: Отлично, рада была помочь, обращайся \(^_^)/
       position:
         x: 1406.0
-        y: 68.2
+        y: 194.5
       positionAbsolute:
         x: 1406.0
-        y: 68.2
+        y: 194.5
       width: 242
       height: 115
       selected: false
@@ -516,10 +527,10 @@ workflow:
           \ формы/ фичи\n3. Все ответы на уточняющие вопросы"
       position:
         x: 1406.0
-        y: 1079.1
+        y: 1205.5
       positionAbsolute:
         x: 1406.0
-        y: 1079.1
+        y: 1205.5
       width: 242
       height: 739
       selected: false
@@ -684,10 +695,10 @@ workflow:
         structured_output_enabled: true
       position:
         x: 718.0
-        y: 320.9
+        y: 447.3
       positionAbsolute:
         x: 718.0
-        y: 320.9
+        y: 447.3
       width: 242
       height: 87
       selected: false
@@ -746,10 +757,10 @@ workflow:
         iteration_id: '1762969275082'
       position:
         x: 1406.0
-        y: 320.9
+        y: 447.3
       positionAbsolute:
         x: 1406.0
-        y: 320.9
+        y: 447.3
       width: 242
       height: 51
       selected: false
@@ -869,10 +880,10 @@ workflow:
         structured_output_enabled: true
       position:
         x: 718.0
-        y: 131.4
+        y: 257.7
       positionAbsolute:
         x: 718.0
-        y: 131.4
+        y: 257.7
       width: 242
       height: 87
       selected: false
@@ -900,10 +911,10 @@ workflow:
           logical_operator: and
       position:
         x: 1062.0
-        y: 131.4
+        y: 257.7
       positionAbsolute:
         x: 1062.0
-        y: 131.4
+        y: 257.7
       width: 242
       height: 147
       selected: false
@@ -930,10 +941,10 @@ workflow:
         version: '2'
       position:
         x: 1062.0
-        y: 320.9
+        y: 447.3
       positionAbsolute:
         x: 1062.0
-        y: 320.9
+        y: 447.3
       width: 242
       height: 83
       selected: false
@@ -951,10 +962,10 @@ workflow:
           — вместе сделаем её ещё лучше :)
       position:
         x: 1406.0
-        y: 952.7
+        y: 1079.1
       positionAbsolute:
         x: 1406.0
-        y: 952.7
+        y: 1079.1
       width: 242
       height: 147
       selected: false
@@ -1036,10 +1047,10 @@ workflow:
           \n\r\n### \U0001F3C6 Общая оценка статьи\r\n{{ overall_score }}"
       position:
         x: 1062.0
-        y: 447.3
+        y: 573.6
       positionAbsolute:
         x: 1062.0
-        y: 447.3
+        y: 573.6
       width: 242
       height: 51
       selected: false
@@ -1060,6 +1071,15 @@ workflow:
           - conversation
           - type
           write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - sev_reset
+          - blocks
+          variable_selector:
+          - conversation
+          - sev_blocks
+          write_mode: over-write
         - input_type: constant
           operation: set
           value: 0
@@ -1077,7 +1097,7 @@ workflow:
         - input_type: variable
           operation: over-write
           value:
-          - sev_first
+          - sev_reset
           - answers
           variable_selector:
           - conversation
@@ -1111,13 +1131,20 @@ workflow:
           - conversation
           - sev_qa_text
           write_mode: over-write
+        - input_type: constant
+          operation: set
+          value: ''
+          variable_selector:
+          - conversation
+          - sev_article
+          write_mode: over-write
         version: '2'
       position:
         x: 1062.0
-        y: 1205.5
+        y: 68.2
       positionAbsolute:
         x: 1062.0
-        y: 1205.5
+        y: 68.2
       width: 242
       height: 83
       selected: false
@@ -1178,11 +1205,11 @@ workflow:
           \ {\"question\": question, \"progress\": progress, \"answers\": []}"
         code_language: python3
       position:
-        x: 1406.0
-        y: 1205.5
+        x: 718.0
+        y: 68.2
       positionAbsolute:
-        x: 1406.0
-        y: 1205.5
+        x: 718.0
+        y: 68.2
       width: 244
       height: 90
       selected: false
@@ -1201,11 +1228,11 @@ workflow:
 
           {{#sev_first.question#}}'
       position:
-        x: 1750.0
-        y: 1205.5
+        x: 1406.0
+        y: 68.2
       positionAbsolute:
-        x: 1750.0
-        y: 1205.5
+        x: 1406.0
+        y: 68.2
       width: 244
       height: 90
       selected: false
@@ -1315,10 +1342,10 @@ workflow:
         code_language: python3
       position:
         x: 718.0
-        y: 700.0
+        y: 826.4
       positionAbsolute:
         x: 718.0
-        y: 700.0
+        y: 826.4
       width: 244
       height: 90
       selected: false
@@ -1371,10 +1398,10 @@ workflow:
           write_mode: over-write
       position:
         x: 1062.0
-        y: 700.0
+        y: 826.4
       positionAbsolute:
         x: 1062.0
-        y: 700.0
+        y: 826.4
       width: 244
       height: 90
       selected: false
@@ -1423,10 +1450,10 @@ workflow:
           logical_operator: and
       position:
         x: 1406.0
-        y: 700.0
+        y: 826.4
       positionAbsolute:
         x: 1406.0
-        y: 700.0
+        y: 826.4
       width: 244
       height: 90
       selected: false
@@ -1446,10 +1473,10 @@ workflow:
           {{#sev_state.question#}}'
       position:
         x: 1750.0
-        y: 573.6
+        y: 700.0
       positionAbsolute:
         x: 1750.0
-        y: 573.6
+        y: 700.0
       width: 244
       height: 90
       selected: false
@@ -1572,10 +1599,10 @@ workflow:
         structured_output_enabled: true
       position:
         x: 1750.0
-        y: 700.0
+        y: 826.4
       positionAbsolute:
         x: 1750.0
-        y: 700.0
+        y: 826.4
       width: 244
       height: 90
       selected: false
@@ -1603,10 +1630,10 @@ workflow:
           logical_operator: and
       position:
         x: 2094.0
-        y: 700.0
+        y: 826.4
       positionAbsolute:
         x: 2094.0
-        y: 700.0
+        y: 826.4
       width: 244
       height: 90
       selected: false
@@ -1653,25 +1680,29 @@ workflow:
           progress:
             type: string
             children: null
+          stage:
+            type: string
+            children: null
         code: "def main(blocks, clarifying_questions):\n    cq = list(clarifying_questions\
           \ or [])\n    blk = list(blocks or [])\n    if cq:\n        blk.append({\"\
           title\": \"Уточняющие вопросы\", \"questions\": cq})\n    bi = len(blk)\
-          \ - 1\n    qi = 0\n    question = \"\"\n    progress = \"\"\n    if bi >=\
-          \ 0 and bi < len(blk):\n        qs = blk[bi].get(\"questions\", []) or []\n\
-          \        if qi < len(qs):\n            question = qs[qi]\n            total\
-          \ = sum(len(b.get(\"questions\", []) or []) for b in blk)\n            before\
-          \ = sum(len(b.get(\"questions\", []) or []) for b in blk[:bi])\n       \
-          \     progress = \"Вопрос %d из %d · Блок %d/%d: %s\" % (before + qi + 1,\
-          \ total, bi + 1, len(blk), blk[bi].get(\"title\", \"\"))\n    return {\"\
-          blocks\": blk, \"block_idx\": bi, \"question_idx\": qi, \"question\": question,\
-          \ \"progress\": progress}"
+          \ - 1\n    qi = 0\n    question = \"\"\n    progress = \"\"\n    if cq and\
+          \ bi >= 0 and bi < len(blk):\n        qs = blk[bi].get(\"questions\", [])\
+          \ or []\n        if qi < len(qs):\n            question = qs[qi]\n     \
+          \       total = sum(len(b.get(\"questions\", []) or []) for b in blk)\n\
+          \            before = sum(len(b.get(\"questions\", []) or []) for b in blk[:bi])\n\
+          \            progress = \"Вопрос %d из %d · Блок %d/%d: %s\" % (before +\
+          \ qi + 1, total, bi + 1, len(blk), blk[bi].get(\"title\", \"\"))\n    stage\
+          \ = \"ask\" if (cq and question) else \"generate\"\n    if bi < 0:\n   \
+          \     bi = 0\n    return {\"blocks\": blk, \"block_idx\": bi, \"question_idx\"\
+          : qi, \"question\": question, \"progress\": progress, \"stage\": stage}"
         code_language: python3
       position:
         x: 2438.0
-        y: 700.0
+        y: 826.4
       positionAbsolute:
         x: 2438.0
-        y: 700.0
+        y: 826.4
       width: 244
       height: 90
       selected: false
@@ -1721,11 +1752,11 @@ workflow:
           - sev_clarified
           write_mode: over-write
       position:
-        x: 2782.0
-        y: 700.0
+        x: 3126.0
+        y: 826.4
       positionAbsolute:
-        x: 2782.0
-        y: 700.0
+        x: 3126.0
+        y: 826.4
       width: 244
       height: 90
       selected: false
@@ -1744,11 +1775,11 @@ workflow:
 
           {{#sev_add_clarifying.question#}}'
       position:
-        x: 3126.0
-        y: 700.0
+        x: 3470.0
+        y: 826.4
       positionAbsolute:
-        x: 3126.0
-        y: 700.0
+        x: 3470.0
+        y: 826.4
       width: 244
       height: 90
       selected: false
@@ -1810,9 +1841,13 @@ workflow:
             {{ qa_text }}
 
 
-            {% if edit_request %}
+            {% if article %}Текущая версия статьи (по ней вносятся правки):
 
-            Пользователь просит внести правки:
+            {{ article }}
+
+            {% endif %}
+
+            {% if edit_request %}Пользователь просит внести правки:
 
             {{ edit_request }}
 
@@ -1874,13 +1909,17 @@ workflow:
             - conversation
             - sev_edit_request
             variable: edit_request
+          - value_selector:
+            - conversation
+            - sev_article
+            variable: article
         structured_output_enabled: true
       position:
         x: 1750.0
-        y: 826.4
+        y: 952.7
       positionAbsolute:
         x: 1750.0
-        y: 826.4
+        y: 952.7
       width: 244
       height: 90
       selected: false
@@ -1925,10 +1964,10 @@ workflow:
           {% endfor %}'
       position:
         x: 2094.0
-        y: 826.4
+        y: 952.7
       positionAbsolute:
         x: 2094.0
-        y: 826.4
+        y: 952.7
       width: 244
       height: 90
       selected: false
@@ -1948,10 +1987,10 @@ workflow:
           Двигаемся дальше или нужно что-то /скорректировать?'
       position:
         x: 2438.0
-        y: 826.4
+        y: 952.7
       positionAbsolute:
         x: 2438.0
-        y: 826.4
+        y: 952.7
       width: 244
       height: 90
       selected: false
@@ -1987,12 +2026,21 @@ workflow:
           - conversation
           - sev_edit_request
           write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - sev_template
+          - output
+          variable_selector:
+          - conversation
+          - sev_article
+          write_mode: over-write
       position:
         x: 2782.0
-        y: 826.4
+        y: 952.7
       positionAbsolute:
         x: 2782.0
-        y: 826.4
+        y: 952.7
       width: 244
       height: 90
       selected: false
@@ -2019,10 +2067,10 @@ workflow:
           logical_operator: and
       position:
         x: 1406.0
-        y: 194.5
+        y: 320.9
       positionAbsolute:
         x: 1406.0
-        y: 194.5
+        y: 320.9
       width: 244
       height: 90
       selected: false
@@ -2048,10 +2096,80 @@ workflow:
           write_mode: over-write
       position:
         x: 1750.0
-        y: 194.5
+        y: 320.9
       positionAbsolute:
         x: 1750.0
-        y: 194.5
+        y: 320.9
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - id: sev_clarify_route
+      type: custom
+      data:
+        type: if-else
+        title: Маршрут уточнений
+        desc: ''
+        selected: false
+        cases:
+        - id: 'true'
+          case_id: 'true'
+          conditions:
+          - id: 019d5b46-10a0-435f-b796-195d84ac4b3b
+            comparison_operator: is
+            value: ask
+            varType: string
+            variable_selector:
+            - sev_add_clarifying
+            - stage
+          logical_operator: and
+      position:
+        x: 2782.0
+        y: 826.4
+      positionAbsolute:
+        x: 2782.0
+        y: 826.4
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - id: sev_reset
+      type: custom
+      data:
+        type: code
+        title: sev_reset
+        desc: ''
+        selected: false
+        variables: []
+        outputs:
+          blocks:
+            type: array[object]
+            children: null
+          answers:
+            type: array[string]
+            children: null
+        code: "def main():\n    default_blocks = [\n        {\"title\": \"Тема и задача\
+          \ статьи\", \"questions\": [\"О чем статья? Какую цель она преследует?\"\
+          , \"Какую задачу решает статья для читателя?\"]},\n        {\"title\": \"\
+          Для кого статья\", \"questions\": [\"Кто целевая аудитория?\", \"Какой уровень\
+          \ детализации необходим?\"]},\n        {\"title\": \"Условия и ограничения\"\
+          , \"questions\": [\"Без каких условий инструкция не сработает?\", \"Есть\
+          \ ли ограничения по терминологии или формату?\"]},\n        {\"title\":\
+          \ \"Как работает процесс\", \"questions\": [\"Расскажи логику работы процесса,\
+          \ а не только последовательность действий.\", \"Какие состояния и переходы\
+          \ есть в процессе?\"]},\n        {\"title\": \"Пошаговая инструкция\", \"\
+          questions\": [\"Какие конкретные действия выполняет пользователь?\", \"\
+          Что происходит после каждого шага?\"]},\n    ]\n    return {\"blocks\":\
+          \ default_blocks, \"answers\": []}"
+        code_language: python3
+      position:
+        x: 3774.0
+        y: 227.0
+      positionAbsolute:
+        x: 3774.0
+        y: 227.0
       width: 244
       height: 90
       selected: false
@@ -2388,18 +2506,6 @@ workflow:
         targetType: code
         isInIteration: false
         isInLoop: false
-    - id: sev_add_clarifying--sev_clarify_assign-target
-      source: sev_add_clarifying
-      target: sev_clarify_assign
-      sourceHandle: ''
-      targetHandle: target
-      type: custom
-      zIndex: 0
-      data:
-        sourceType: code
-        targetType: assigner
-        isInIteration: false
-        isInLoop: false
     - id: sev_clarify_assign--sev_clarify_answer-target
       source: sev_clarify_assign
       target: sev_clarify_answer
@@ -2508,9 +2614,57 @@ workflow:
         targetType: llm
         isInIteration: false
         isInLoop: false
-    - id: 1759432952420-f4d3cb4a-c7e6-456a-a29f-d311d5878dfb-sev_first-target
+    - id: sev_add_clarifying--sev_clarify_route-target
+      source: sev_add_clarifying
+      target: sev_clarify_route
+      sourceHandle: ''
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: code
+        targetType: if-else
+        isInIteration: false
+        isInLoop: false
+    - id: sev_clarify_route-true-sev_clarify_assign-target
+      source: sev_clarify_route
+      target: sev_clarify_assign
+      sourceHandle: 'true'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: assigner
+        isInIteration: false
+        isInLoop: false
+    - id: sev_clarify_route-false-sev_generator-target
+      source: sev_clarify_route
+      target: sev_generator
+      sourceHandle: 'false'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: llm
+        isInIteration: false
+        isInLoop: false
+    - id: 1759413282408-40bb5ffc-6095-47e9-9f48-99be4ad8b439-sev_reset-target
+      source: '1759413282408'
+      target: sev_reset
+      sourceHandle: 40bb5ffc-6095-47e9-9f48-99be4ad8b439
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: if-else
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: 1759432952420-f4d3cb4a-c7e6-456a-a29f-d311d5878dfb-sev_reset-target
       source: '1759432952420'
-      target: sev_first
+      target: sev_reset
       sourceHandle: f4d3cb4a-c7e6-456a-a29f-d311d5878dfb
       targetHandle: target
       type: custom
@@ -2520,10 +2674,10 @@ workflow:
         targetType: code
         isInIteration: false
         isInLoop: false
-    - id: sev_first-source-1781437544482-target
-      source: sev_first
+    - id: sev_reset--1781437544482-target
+      source: sev_reset
       target: '1781437544482'
-      sourceHandle: source
+      sourceHandle: ''
       targetHandle: target
       type: custom
       zIndex: 0
@@ -2532,15 +2686,27 @@ workflow:
         targetType: assigner
         isInIteration: false
         isInLoop: false
-    - id: 1781437544482-source-sev_first_answer-target
+    - id: 1781437544482--sev_first-target
       source: '1781437544482'
-      target: sev_first_answer
-      sourceHandle: source
+      target: sev_first
+      sourceHandle: ''
       targetHandle: target
       type: custom
       zIndex: 0
       data:
         sourceType: assigner
+        targetType: code
+        isInIteration: false
+        isInLoop: false
+    - id: sev_first--sev_first_answer-target
+      source: sev_first
+      target: sev_first_answer
+      sourceHandle: ''
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: code
         targetType: answer
         isInIteration: false
         isInLoop: false
@@ -2733,6 +2899,14 @@ workflow:
     selector:
     - conversation
     - sev_qa_text
+    value: ''
+    value_type: string
+  - description: Текущая версия статьи Севары (для правок)
+    id: 800d472e-2a40-44d9-b08d-6de9b395cc5b
+    name: sev_article
+    selector:
+    - conversation
+    - sev_article
     value: ''
     value_type: string
   rag_pipeline_variables: []
