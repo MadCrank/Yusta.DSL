@@ -93,6 +93,12 @@ services:
       REDIS_HOST: ${REDIS_HOST:-redis}
       REDIS_PORT: ${REDIS_PORT:-6379}
       REDIS_PASSWORD: ${REDIS_PASSWORD:-difyai123456}
+      # Celery broker (streaming chat needs the worker via Redis; without this
+      # kombu falls back to amqp://guest@127.0.0.1:5672 and web requests hang)
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL:-redis://:${REDIS_PASSWORD:-difyai123456}@redis:6379/1}
+      CELERY_BACKEND: ${CELERY_BACKEND:-redis}
+      BROKER_USE_SSL: ${BROKER_USE_SSL:-false}
+      CELERY_USE_SENTINEL: ${CELERY_USE_SENTINEL:-false}
       # Hosted OpenAI provider (pre-configured via env)
       HOSTED_OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       HOSTED_OPENAI_API_BASE: ${OPENAI_API_BASE_URL:-https://api.openai.com/v1}
@@ -157,6 +163,11 @@ services:
       REDIS_HOST: ${REDIS_HOST:-redis}
       REDIS_PORT: ${REDIS_PORT:-6379}
       REDIS_PASSWORD: ${REDIS_PASSWORD:-difyai123456}
+      # Celery broker (must match api; worker is the task consumer for streaming)
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL:-redis://:${REDIS_PASSWORD:-difyai123456}@redis:6379/1}
+      CELERY_BACKEND: ${CELERY_BACKEND:-redis}
+      BROKER_USE_SSL: ${BROKER_USE_SSL:-false}
+      CELERY_USE_SENTINEL: ${CELERY_USE_SENTINEL:-false}
       # Storage
       STORAGE_TYPE: ${STORAGE_TYPE:-local}
       STORAGE_LOCAL_PATH: ${STORAGE_LOCAL_PATH:-storage}
@@ -165,6 +176,9 @@ services:
       # Sandbox (code executor)
       CODE_EXECUTION_ENDPOINT: ${CODE_EXECUTION_ENDPOINT:-http://sandbox:8194}
       CODE_EXECUTION_API_KEY: ${SANDBOX_API_KEY:-dify-sandbox}
+      # Plugin daemon connection (worker executes streaming tasks and needs it)
+      PLUGIN_DAEMON_URL: ${PLUGIN_DAEMON_URL:-http://plugin_daemon:5002}
+      PLUGIN_DAEMON_KEY: ${PLUGIN_DAEMON_KEY:-lYkiYYT6owG+71oLerGzA7GXCgOT++6ovaezWAjpCjf+Sjc3ZtU+qUEi}
       # Hosted OpenAI provider
       HOSTED_OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       HOSTED_OPENAI_API_BASE: ${OPENAI_API_BASE_URL:-https://api.openai.com/v1}
